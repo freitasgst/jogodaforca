@@ -28,9 +28,9 @@ Para adicionarmos funções novas
 O trabalho em si
 
 5. git add [nome do arquivo] ou git add . (se for todos) 
-    1. git status -> para ver quais arquivos estamos enviando (tem que estar vermelho)
+    1. git status -> para ver quais arquivos estamos enviando (tem que estar vermelho antes de add e verde depois)
 6. git commit -m "mensagem explicativa da mudança, mais detalhada"
-    1. git status -> para ver quais arquivos estamos enviando (tem que estar verde)
+    1. 1. git status -> não estaria mais lá
 7. git push origin [nome da branch]
 
 ### Criar um pull request
