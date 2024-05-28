@@ -16,10 +16,35 @@ Se quiserem seguir tutorial: https://www.youtube.com/watch?v=_hZf1teRFNg&ab_chan
 
 ## Workflow
 
-Programa
-git add [nome do arquivo] ou git add . (se for todos) 
-git stage -> para ver quais arquivos estamos enviando
-git commit -m "mensagem explicativa da mudança"
-git branch -M "nome da branch com a mudança que vai fazer"
-git remote add [nome da branch] git@github.com:freitasgst/jogodaforca.git
-git push -u [nome da branch]
+### Criar uma branch
+Para adicionarmos funções novas
+
+1. git pull origin main
+2. git branch [nome da função, da feature nova, curto]
+3. git checkout [nome da branch que vai trabalhar]
+4. Trabalhar aqui nesse branch
+
+### Alterando o projeto
+O trabalho em si
+
+5. git add [nome do arquivo] ou git add . (se for todos) 
+    1. git status -> para ver quais arquivos estamos enviando (tem que estar vermelho)
+6. git commit -m "mensagem explicativa da mudança, mais detalhada"
+    1. git status -> para ver quais arquivos estamos enviando (tem que estar verde)
+7. git push origin [nome da branch]
+
+### Criar um pull request
+Qualquer código de uma deve ser testado pelas outras duas
+
+8. ir na pasta do trabalho lá no github, vai ter um botão verde de create pull request
+9. comparar o código, dá para comentar nas linhas
+    #### Testes
+    Antes de aceitar o pull request, devemos testar!
+    1. no VSCode: git pull
+    2. Testar querendo quebrar o negócio mesmo
+10. aceitar apertando merge
+11. deletar o branch
+
+Mais: https://www.youtube.com/playlist?list=PLcoYAcR89n-qbO7YAVj5S0alABLis_QVU
+
+https://docs.github.com/en/get-started/using-github/github-flow
