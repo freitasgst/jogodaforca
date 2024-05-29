@@ -5,3 +5,4 @@
 #Feito por: Cibele, Gabriela e Letícia
 
 gabi = 10
+lets = 1000
