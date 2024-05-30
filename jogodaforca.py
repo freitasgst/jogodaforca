@@ -6,3 +6,4 @@
 
 gabi = 10
 lets = 1000
+cibele = "oi jovens senhoras"
