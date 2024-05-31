@@ -1,9 +1,16 @@
-#########################################
-##############JOGO DA FORCA##############
-#########################################
+import funcoes
 
-#Feito por: Cibele, Gabriela e Letícia
+arq = open('jogoParaTestes.txt')
+palavras = arq.readlines()
 
-gabi = 10
-lets = 1000
-cibele = "oi jovens senhoras"
+alfabeto = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+for i in palavras:
+    print(f'{i.strip()}')
+
+arq.close()
+
+palavra = funcoes.escolhePalavra(palavras)
+print(funcoes.guardaDicas(palavra))
+
+funcoes.countdown(180)
