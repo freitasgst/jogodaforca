@@ -86,17 +86,18 @@ def showHappyPacman():
 def showPositonPacman(quantityFood, quantityShit):
     food = ['\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354']
     shit = ['\U0001F4A9', '\U0001F4A9', '\U0001F4A9', '\U0001F4A9', '\U0001F4A9', '\U0001F4A9', '\U0001F4A9']
-    
+    packman = "\n" + animation1Pacman + "\n" + animation2Pacman + "\n" + animation3Pacman + "\n" + animation18Pacman + "\n" + animation19Pacman + "\n" +animation20Pacman + "\n" + animation21Pacman + "\n" + animation8Pacman + "\n" + animation9Pacman + "\n"
+
     for _ in range(quantityShit):
         food.pop(0)
     for _ in range(quantityFood):
         shit.pop(0)
     print('=====================================================================================================')
-    print( "      ".join(shit), '      PAC      ',"      ".join(food), '      BONECO      ')
+    print( "      ".join(shit),  packman, "\n" ,"      ".join(food).strip())
     print('=====================================================================================================')
 
 showHungryPacman()
 showEatingPacman()
 showGoodPacman()
 showHappyPacman()
-showPositonPacman(2, 5)
+showPositonPacman(0, 7)
