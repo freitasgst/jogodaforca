@@ -20,6 +20,7 @@ animation18Pacman = r'|          |'
 animation19Pacman = r'|     \____|'
 animation20Pacman = r'|          |'
 animation21Pacman = r'|          |'
+animation22Pacman = r'|      ____|'
 animationFood1 = r' __'
 animationFood2 = r'|__|'
 
@@ -86,18 +87,19 @@ def showHappyPacman():
 def showPositonPacman(quantityFood, quantityShit):
     food = ['\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354']
     shit = ['\U0001F4A9', '\U0001F4A9', '\U0001F4A9', '\U0001F4A9', '\U0001F4A9', '\U0001F4A9', '\U0001F4A9']
-    packman = "\n" + animation1Pacman + "\n" + animation2Pacman + "\n" + animation3Pacman + "\n" + animation18Pacman + "\n" + animation19Pacman + "\n" +animation20Pacman + "\n" + animation21Pacman + "\n" + animation8Pacman + "\n" + animation9Pacman + "\n"
+    print(food)
+    packman = "\n" + animation1Pacman + "\n" + animation2Pacman + "\n" + animation3Pacman + "\n" + animation18Pacman + "\n" + animation22Pacman + "\n" +animation20Pacman + "\n" + animation21Pacman + "\n" + animation8Pacman + "\n" + animation9Pacman + "\n"
 
     for _ in range(quantityShit):
         food.pop(0)
     for _ in range(quantityFood):
         shit.pop(0)
     print('=====================================================================================================')
-    print( "      ".join(shit),  packman, "\n" ,"      ".join(food).strip())
+    print("      ".join(shit),  packman, "\n" ,"       ".join(food), '\n',f'Quantidade de tentativas restantes: {quantityFood}\n', f'Quantidade de erros: {quantityShit} \n')
     print('=====================================================================================================')
-
+ 
 showHungryPacman()
 showEatingPacman()
 showGoodPacman()
 showHappyPacman()
-showPositonPacman(0, 7)
+showPositonPacman(5, 2)

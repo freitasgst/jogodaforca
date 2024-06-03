@@ -1,9 +1,1 @@
-animation1PacMan = ' __________  '
-# animation2PacMan = '/    X  X  \ '
-# animation3PacMan = '|          | '
-# animation4PacMan = '|     /\/\/  '
-# animation5PacMan = '|    /       '
-# animation6PacMan = '|    \       '
-# animation7PacMan = '|     \/\/\  '
-# animation8PacMan = '|          | '
-# animation9PacMan = '\__________/ '
+"\n"
