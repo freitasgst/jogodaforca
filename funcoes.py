@@ -1,14 +1,15 @@
-import time 
+import time, datetime 
 import random
 
 def countdown(t): 
     while t: 
         mins, secs = divmod(t, 60) 
         timer = f'{mins:02d}:{secs:02d}'
-        #print(timer, end="\r") 
-        return True
+        # return print(timer, end="\r") 
         time.sleep(1) 
         t -= 1
+        return print(timer) 
+        # return True
     #print('fim de jogo')
     return False
 
@@ -23,6 +24,17 @@ def guardaDicas(palavras, palavra, qtd):
     for i in range(len(palavras)):
         if(palavras[i].strip() == f'P:{palavra}'):
             for j in range(len(dicas)):
-                k = i + j + 1
+                k = i + 1 + j
                 dicas[j] = palavras[k][2:].strip()
     return dicas
+
+def defineFim(resultado, resposta, duracao):
+    mensagem = ''
+    if(resultado):
+        mensagem = 'Parabéns, você ganhou!'
+    else:
+        if(duracao > 10):
+            mensagem = f'Sinto muito, o tempo acabou. A palavra era {resposta}.'
+        else:
+            mensagem = f'Sinto muito, as vidas acabaram. A palavra era {resposta}.'
+    return print(mensagem, '\n')

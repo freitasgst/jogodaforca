@@ -15,7 +15,7 @@ D:É um objeto que normalmente fica na parede ou encima da mesa
 D:É usado para acompanhar e organizar os dias, semanas e meses do ano
 P:cérebro
 D:É um órgão do corpo humano
-D:Esse o´rgão é responsável por controlar todas as funções do corpo, incluindo pensamento, memória, emoções e movimentos
+D:Esse órgão é responsável por controlar todas as funções do corpo, incluindo pensamento, memória, emoções e movimentos
 P:cicatriz
 D:É um sinal na pele após um corte ou ferida
 D:Pode ser muito grande ou pequena
