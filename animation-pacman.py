@@ -98,8 +98,9 @@ def showPositonPacman(quantityFood, quantityShit):
     print("      ".join(shit),  packman, "\n" ,"       ".join(food), '\n',f'Quantidade de tentativas restantes: {quantityFood}\n', f'Quantidade de erros: {quantityShit} \n')
     print('=====================================================================================================')
  
-showHungryPacman()
-showEatingPacman()
-showGoodPacman()
-showHappyPacman()
-showPositonPacman(5, 2)
+def main(quantityAvaliable, quantityErrors):  
+    showHungryPacman()
+    showEatingPacman()
+    showGoodPacman()
+    showHappyPacman()
+    showPositonPacman(quantityAvaliable, quantityErrors)
