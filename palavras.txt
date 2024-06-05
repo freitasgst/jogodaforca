@@ -1,0 +1,45 @@
+P:advogado
+D:É uma profissão muito bem vista
+D:Trabalha com terno e lida com leis
+P:amendoim
+D:É visto como um pestisco
+D:Combina com cerveja
+P:escola
+D:É uma instituição
+D:Tem muitas salas de aulas
+P:futebol
+D:É um esporte
+D:Todo brasileiro nasce sabendo jogar
+P:calendario
+D:É um objeto que normalmente fica na parede ou encima da mesa
+D:É usado para acompanhar e organizar os dias, semanas e meses do ano
+P:cérebro
+D:É um órgão do corpo humano
+D:Esse o´rgão é responsável por controlar todas as funções do corpo, incluindo pensamento, memória, emoções e movimentos
+P:cicatriz
+D:É um sinal na pele após um corte ou ferida
+D:Pode ser muito grande ou pequena
+P:tomate
+D:É um legume, mas também é considerado uma fruta
+D:Está quase sempre presente nas saladas e pizzas
+P:grampeador
+D:É um objeto de escritório
+D:Utilizado para juntar várias folhas em um documento só
+P:hamster
+D:É um animal pequeno
+D:Primo dos ratos
+P:helicóptero
+D:É um tipo de transporte
+D:É frequentemente usado para resgates de pessoas 
+P:madrasta
+D:É um membro de algumas famílias
+D:A cinderela tem uma muito malvada
+P:microfone
+D:É um objeto usado em shows e eventos
+D:Usado para amplificar o som da voz
+P:pneu
+D:É um objeto com formato circular
+D:Sem ele um carro não pode andar
+P:ventilador
+D:É um objeto muito usado no verão
+D:Pode ser instalado no teto ou ser portátil
