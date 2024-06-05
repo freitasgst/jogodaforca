@@ -54,7 +54,7 @@ if(inicio == 'Y'):
     palavraDecifrada = False
     # timer = funcoes.countdown(180)
 
-    while(not palavraDecifrada and duracao <= t):
+    while(not palavraDecifrada and duracao <= t and len(letrasErradas) < 7):
         entrada = input('\nDigite uma letra ou peça por uma dica: ').upper()
         addArrLetras = True                                                     # boolean para saber se a entrada já consta no array de letras usadas
         entradaErrada = True                                                    # boolean para controlar se a entrada deve ser adicionada ao array de letras erradas
@@ -124,6 +124,7 @@ if(inicio == 'Y'):
     if(novoJogo == 'Y'):
         # chama funcao de jogo
         print('chama funcao de jogo')
+        
     else:
         sys.exit()
 else:
