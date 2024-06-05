@@ -3,6 +3,7 @@ import datetime, sys
 
 arq = open('jogo.txt')                                          # abre o arquivo .txt com as palavras e as dicas
 num_dicas = 2
+t = 180
 
 palavras = arq.readlines()                                      # lê as linhas do arq em lista
 palavra = funcoes.escolhePalavra(palavras)                      # escolhe a palavra da lista enviada como parâmetro
@@ -13,21 +14,34 @@ letrasUsadas = []                                               # onde vamos gua
 letrasErradas = []                                              # onde vamos guardar as letras usadas que não estão na palavra
 controlador_dicas = 0                                           # usamos essa variável para controlar a quantidade de dicas
 
+# Desenho da tela inicial
+print("Cibele Gameleira - RA: 1680972411009 \nGabriela Freitas - RA: 1680972411001 \nLetícia Nascimento - RA: 1680972411037")
+
+print("Jogo[X] \nDicas[X] \nControle de tempo[X] \n")
+
+print("Bem vindo(a) a um jogo da forca inovador. Esteja preparado(a) para esse desafio!")
+
+print("Antes de jogar, você precisa saber de algumas regras: \n")
+print("- Você terá 7 vidas para acertar uma palavra;")
+print("- As palavras não contém acentuação;")
+print("- Você pode pedir dicas sobre as palavras, mas cuidado, elas custam uma vida;")
+print("- Toda palavra tem duas dicas disponíveis;")
+print("- Se suas vidas acabarem antes de adivinhar a palavra, você perde o jogo;")
+print("- Perdendo ou ganhando, você sempre pode jogar de novo.\n")
+
+# Pede ação do jogador, para que a contagem de tempo comece apenas quando o jogador estiver preparado
 inicio = input('Pronto para começar? [Y/n]: ').upper()
 while(inicio != 'Y' and inicio != 'N'):
     inicio = input('Comando inválido. Digite Y para começar ou N para sair do jogo: ').upper()
 
 if(inicio == 'Y'):
-    #Começa o jogo
+    # Começa o jogo
     agora = datetime.datetime.now().second
     
     arrLetras = ['' for aux in range(len(palavra))]
     for i in range(len(palavra)):
         arrLetras[i] = palavra[i].upper()                           # separa cada letra da palavra e põe na lista
     codigo = ['_ ' for aux in range(len(arrLetras))]                # cria os _ _ _ _ _ _
-
-    # Desenho da tela inicial
-    # prints
 
     for l in range(len(codigo)):
         if(l == len(codigo) - 1):
@@ -40,7 +54,7 @@ if(inicio == 'Y'):
     palavraDecifrada = False
     # timer = funcoes.countdown(180)
 
-    while(not palavraDecifrada and duracao <= 10):
+    while(not palavraDecifrada and duracao <= t):
         entrada = input('\nDigite uma letra ou peça por uma dica: ').upper()
         addArrLetras = True                                                     # boolean para saber se a entrada já consta no array de letras usadas
         entradaErrada = True                                                    # boolean para controlar se a entrada deve ser adicionada ao array de letras erradas
@@ -106,7 +120,11 @@ if(inicio == 'Y'):
     funcoes.defineFim(palavraDecifrada, palavra, duracao)
     novoJogo = input('Deseja jogar novamente? [Y/n]: ').upper()
     while(novoJogo != 'Y' and novoJogo != 'N'):
-        novoJogo = input('Código inválido. Digite Y para jogar novamente e N para sair: ')
-    
+        novoJogo = input('Código inválido. Digite Y para jogar novamente e N para sair: ').upper()
+    if(novoJogo == 'Y'):
+        # chama funcao de jogo
+        print('chama funcao de jogo')
+    else:
+        sys.exit()
 else:
     sys.exit()
