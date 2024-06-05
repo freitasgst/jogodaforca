@@ -32,6 +32,7 @@ print("- As palavras não contém acentuação;")
 print("- Você pode pedir dicas sobre as palavras, mas cuidado, elas custam uma vida;")
 print("- Toda palavra tem duas dicas disponíveis;")
 print("- Se suas vidas acabarem antes de adivinhar a palavra, você perde o jogo;")
+print(" - Você terá um timer de de 3 minutos para jogar, se seu tempo acabar antes de acertar a palavra, você perde o jogo")
 print("- Perdendo ou ganhando, você sempre pode jogar de novo.")
 
 
