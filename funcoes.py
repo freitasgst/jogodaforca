@@ -24,3 +24,6 @@ def guardaDicas(palavra):
             dica_1 = palavras[i+1].strip()
             dica_2 = palavras[i+2].strip()
     return [dica_1, dica_2]
+
+
+    
