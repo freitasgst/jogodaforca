@@ -29,12 +29,7 @@ print("- As palavras não contém acentuação;")
 print("- Você pode pedir dicas sobre as palavras, mas cuidado, elas custam uma vida;")
 print("- Toda palavra uma ou mais dicas disponíveis;")
 print("- Se suas vidas acabarem antes de adivinhar a palavra, você perde o jogo;")
-<<<<<<< HEAD
-print(" - Você terá um timer de de 3 minutos para jogar, se seu tempo acabar antes de acertar a palavra, você perde o jogo")
-print("- Perdendo ou ganhando, você sempre pode jogar de novo.")
-=======
 print("- Perdendo ou ganhando, você sempre pode jogar de novo.\n")
->>>>>>> ff3c01e533c41527ac7205b7ebc1d15120fc9c64
 
 # Pede ação do jogador, para que a contagem de tempo comece apenas quando o jogador estiver preparado
 inicio = input('Pronto para começar? [Y/n]: ').upper()
