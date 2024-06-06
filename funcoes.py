@@ -15,7 +15,7 @@ def countdown(t):
 
 def escolhePalavra(palavras):
     palavra = random.choice(palavras)
-    while 'D:' in palavra:                          # mesma coisa que while(palavra.find('D:') != -1):
+    while 'D:' in palavra:                         
         palavra = random.choice(palavras)
     return palavra[2:].strip()                      # tira o 'P:' antes de retornar a palavra e tira o '\n'
 
@@ -124,7 +124,7 @@ def defineFim(resultado, resposta, duracao):
         mensagem = 'Parabéns, você ganhou!\U0001F601'
     else:
         if(duracao > 10):
-            mensagem = f'Sinto muito, o tempo acabou. A palavra era {resposta}.\U0001F61E'
+            mensagem = f'\033[1;31mSinto muito, o tempo acabou. A palavra era {resposta}.\U0001F61E'
         else:
-            mensagem = f'Sinto muito, as vidas acabaram. A palavra era {resposta}.\U0001F61E'
+            mensagem = f'\033[1;31mSinto muito, as vidas acabaram. A palavra era {resposta}.\U0001F61E'
     return print(mensagem, '\n')

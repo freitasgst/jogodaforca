@@ -15,7 +15,7 @@ letrasErradas = []                                              # onde vamos gua
 controlador_dicas = 0                                           # usamos essa variável para controlar a quantidade de dicas
 
 # Desenho da tela inicial
-print("Cibele Gameleira - RA: 1680972411009 \nGabriela Freitas - RA: 1680972411001 \nLetícia Nascimento - RA: 1680972411037")
+print("Nome: Cibele Gameleira - RA: 1680972411009 \nNome: Gabriela Freitas - RA: 1680972411001 \nNome: Letícia Nascimento - RA: 1680972411037")
 
 print("Jogo[X] \nDicas[X] \nControle de tempo[X] \n")
 
@@ -66,10 +66,11 @@ if(inicio == 'Y'):
 
         if(entrada == 'DICA'):
             if(controlador_dicas < num_dicas):
-                print('Dica: ', dicas[controlador_dicas])
+                palavraDecifrada = False
                 controlador_dicas += 1
             else:
                 print('Você já usou todas as suas dicas')
+            print('Dica: ', dicas[controlador_dicas])
         else:
             # Checa se a letra já foi usada
             for i in range(len(letrasUsadas)):
