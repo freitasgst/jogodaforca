@@ -13,20 +13,21 @@ def countdown(t):
     #print('fim de jogo')
     return False
 
-def escolhePalavra(palavras):
+def escolhePalavra(palavras, palavrasUsadas):
     palavra = random.choice(palavras)
-    while 'D:' in palavra:                         
+    while 'D:' in palavra and palavra in palavrasUsadas:                         
         palavra = random.choice(palavras)
     return palavra[2:].strip()                      # tira o 'P:' antes de retornar a palavra e tira o '\n'
 
-def guardaDicas(palavras, palavra, qtd):
-    dicas = ['' for aux in range(qtd)]
+def guardaDicas(palavras, palavra):
+    dicas = []
     for i in range(len(palavras)):
         if(palavras[i].strip() == f'P:{palavra}'):
-            for j in range(len(dicas)):
-                k = i + 1 + j
-                dicas[j] = palavras[k][2:].strip()
-    return dicas
+            k = i + 1
+            while 'D:' in palavras[k]:
+                dicas.append(palavras[k][2:].strip())
+                k = k + 1
+            return dicas
 
 def jogo(palavra, dicas, num_dicas):
     # Começa o jogo
@@ -124,7 +125,7 @@ def defineFim(resultado, resposta, duracao):
         mensagem = 'Parabéns, você ganhou!\U0001F601'
     else:
         if(duracao > 10):
-            mensagem = f'\033[1;31mSinto muito, o tempo acabou. A palavra era {resposta}.\U0001F61E'
+            mensagem = f'\033[1;31mSinto muito, o tempo acabou.\033[0;0m" A palavra era {resposta}.\U0001F61E'
         else:
-            mensagem = f'\033[1;31mSinto muito, as vidas acabaram. A palavra era {resposta}.\U0001F61E'
+            mensagem = f'\033[1;31mSinto muito, as vidas acabaram.\033[0;0m" A palavra era {resposta}.\U0001F61E'
     return print(mensagem, '\n')

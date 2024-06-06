@@ -2,12 +2,14 @@ import funcoes                                                  # importa arquiv
 import datetime, sys
 
 arq = open('jogo.txt')                                          # abre o arquivo .txt com as palavras e as dicas
-num_dicas = 2
 t = 180
+palavrasUsadas = []
 
 palavras = arq.readlines()                                      # lê as linhas do arq em lista
-palavra = funcoes.escolhePalavra(palavras)                      # escolhe a palavra da lista enviada como parâmetro
-dicas = funcoes.guardaDicas(palavras, palavra, num_dicas)       # envia a lista, a palavra escolhida e a qtd de dicas. recebe dicas em lista.
+palavra = funcoes.escolhePalavra(palavras, palavrasUsadas)                      # escolhe a palavra da lista enviada como parâmetro
+palavrasUsadas.append(palavra)
+dicas = funcoes.guardaDicas(palavras, palavra)                  # envia a lista, a palavra escolhida e a qtd de dicas. recebe dicas em lista.
+num_dicas = len(dicas)
 arq.close()                                                     # fecha o arquivo .txt
 
 letrasUsadas = []                                               # onde vamos guardar as letras já usadas
