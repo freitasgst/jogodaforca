@@ -21,9 +21,9 @@ def countdown(t):
     #print('fim de jogo')
     return False
 
-def escolhePalavra(palavras, palavrasUsadas):
+def escolhePalavra(palavras):
     palavra = random.choice(palavras)
-    while 'D:' in palavra and palavra in palavrasUsadas:                         
+    while 'D:' in palavra:                         
         palavra = random.choice(palavras)
     return palavra[2:].strip()                      # tira o 'P:' antes de retornar a palavra e tira o '\n'
 

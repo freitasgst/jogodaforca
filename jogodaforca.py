@@ -1,15 +1,15 @@
 import funcoes                                                  # importa arquivo funcoes.py onde deixamos as funções do jogo
 import datetime, sys
 
-arq = open('jogo.txt')                                          # abre o arquivo .txt com as palavras e as dicas
+arq = open('jogo.txt', encoding='utf-8')                                          # abre o arquivo .txt com as palavras e as dicas
 t = 180
-palavrasUsadas = []
 
 palavras = arq.readlines()                                      # lê as linhas do arq em lista
-palavra = funcoes.escolhePalavra(palavras, palavrasUsadas)                      # escolhe a palavra da lista enviada como parâmetro
-palavrasUsadas.append(palavra)
+palavra = funcoes.escolhePalavra(palavras)                      # escolhe a palavra da lista enviada como parâmetro
+
 dicas = funcoes.guardaDicas(palavras, palavra)                  # envia a lista, a palavra escolhida e a qtd de dicas. recebe dicas em lista.
 num_dicas = len(dicas)
+
 arq.close()                                                     # fecha o arquivo .txt
 
 letrasUsadas = []                                               # onde vamos guardar as letras já usadas
@@ -27,7 +27,7 @@ print("Antes de jogar, você precisa saber de algumas regras: \n")
 print("- Você terá 7 vidas para acertar uma palavra;")
 print("- As palavras não contém acentuação;")
 print("- Você pode pedir dicas sobre as palavras, mas cuidado, elas custam uma vida;")
-print("- Toda palavra tem duas dicas disponíveis;")
+print("- Toda palavra uma ou mais dicas disponíveis;")
 print("- Se suas vidas acabarem antes de adivinhar a palavra, você perde o jogo;")
 print("- Perdendo ou ganhando, você sempre pode jogar de novo.\n")
 
