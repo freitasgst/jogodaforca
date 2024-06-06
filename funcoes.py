@@ -1,6 +1,14 @@
 import time, datetime 
 import random
 
+RED   = "\033[1;31m"  
+BLUE  = "\033[1;34m"
+CYAN  = "\033[1;36m"
+GREEN = "\033[0;32m"
+RESET = "\033[0;0m"
+BOLD    = "\033[;1m"
+REVERSE = "\033[;7m"
+
 def countdown(t): 
     while t: 
         mins, secs = divmod(t, 60) 
@@ -122,10 +130,10 @@ def jogo(palavra, dicas, num_dicas):
 def defineFim(resultado, resposta, duracao):
     mensagem = ''
     if(resultado):
-        mensagem = 'Parabéns, você ganhou!\U0001F601'
+        mensagem = f'{GREEN}Parabéns, você ganhou!{RESET}\U0001F601'
     else:
         if(duracao > 10):
-            mensagem = f'\033[1;31mSinto muito, o tempo acabou.\033[0;0m" A palavra era {resposta}.\U0001F61E'
+            mensagem = f'{RED}Sinto muito, o tempo acabou.{RESET} A palavra era {resposta}.\U0001F61E'
         else:
-            mensagem = f'\033[1;31mSinto muito, as vidas acabaram.\033[0;0m" A palavra era {resposta}.\U0001F61E'
+            mensagem = f'{RED}[1;31mSinto muito, as vidas acabaram.{RESET} A palavra era {resposta}.\U0001F61E'
     return print(mensagem, '\n')
