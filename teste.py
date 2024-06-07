@@ -3,7 +3,7 @@ import random
 # PARA fazerSetUpDoJogo, devemos pegar ler arquivo .txt com as palavras e dicas.
 # Chamamos a função de escolherPalavra
 def fazerSetUpDoJogo(palavrasUsadas):
-    arq = open('jogo.txt')
+    arq = open('jogo.txt', encoding='utf-8')
     palavras = arq.readlines()
     arq.close()
     escolherPalavra(palavras, palavrasUsadas)
@@ -14,7 +14,7 @@ def fazerSetUpDoJogo(palavrasUsadas):
 # Retorna a palavra sem o 'P:' e sem o '\n'
 def escolherPalavra(palavras, palavrasUsadas):
     palavra = random.choice(palavras)
-    while 'D:' in palavra and palavra in palavrasUsadas:                         
+    while 'D:' in palavra or palavra in palavrasUsadas:                         
         palavra = random.choice(palavras)
     acharDicas(palavras, palavra)
 
@@ -38,17 +38,18 @@ def guardarDicas(palavras, index):
 
 def iniciarJogo(dicas, palavra):
     dicasAtualizadas = sortearDica(dicas)
-    dicasAtualizadas = entregarDica(dicasAtualizadas)
-    print(dicasAtualizadas)
+    entregarDica(dicasAtualizadas)
 
 def sortearDica(dicas):
-    indexDasDicas = len(dicas)
-    indexSorteado = random.randint(1, indexDasDicas)
-    print('Dicas: ', dicas.pop(indexSorteado))
+    indexDasDicas = len(dicas) - 1
+    indexSorteado = random.randint(0, indexDasDicas)
+    print('Dica: ', dicas.pop(indexSorteado))
     return dicas
 
 def entregarDica(dicas):
-    if len(dicas != 0): sortearDica(dicas) 
-    else: print('Você já usou todas as suas dicas')
+    if (len(dicas) != 0): 
+        sortearDica(dicas) 
+    else: 
+        print('Você já usou todas as suas dicas')
 
 fazerSetUpDoJogo([])
