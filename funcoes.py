@@ -118,12 +118,12 @@ def desenharTelaInicialDoJogo(palavra):
 def sortearDica():
     indexDasDicas = len(dicas) - 1
     indexSorteado = random.randint(0, indexDasDicas)
-    dicasSorteadas.append(dicas.pop(indexSorteado))
+    dicasSorteadas.append(f'Dica: {dicas.pop(indexSorteado)}')
 
 def mostrarDicasNaTela():
     if(len(dicasSorteadas) != 0):
         for i in range(len(dicasSorteadas)):
-            print('Dica: ', dicasSorteadas[i])
+            print(dicasSorteadas[i])
 
 def jogo(palavra):
     timer = controlarTempo(time.time())
@@ -161,11 +161,18 @@ def trocarEntradaParaJogo(entrada):
     return ''.join(arrTemporarioParaNovaEntrada)
 
 def checarSeAindaHáDicasParaEntregar():
+    mensagem = 'Você já usou todas as suas dicas'
     if (len(dicas) != 0): 
         sortearDica() 
         mostrarDicasNaTela()
     else: 
-        print('Você já usou todas as suas dicas')
+        addAvisoDeDicasJaUsadas = True
+        for i in range(len(dicasSorteadas)):
+            if(dicasSorteadas[i] == mensagem):
+                addAvisoDeDicasJaUsadas = False
+                break
+        if(addAvisoDeDicasJaUsadas):
+            dicasSorteadas.append(mensagem)
 
 def checarSeLetraJaFoiUsada(entrada):
     adicionaLetraJaUsada = True
