@@ -288,7 +288,6 @@ def desenharTelaDeFimDeJogo():
         mensagem = f'{i+1}ª rodada - {palavrasUsadas[i]} - {calcularTempoDaRodada(i)}'
         if(resultados[i] == 1): print(GREEN + mensagem + RESET)
         else: print(RED + mensagem + RESET)
-    input('Pressione ENTER para continuar')
     decisaoDoUsuarioParaFimDeJogo()
 
 def calcularTempoDaRodada(i):
@@ -298,6 +297,7 @@ def calcularTempoDaRodada(i):
     return f'{mins:02d}:{secs:02d}'
     
 def decisaoDoUsuarioParaFimDeJogo():
+    time.sleep(1)
     novoJogo = validarNovoJogo()
     if(novoJogo == 'Y'): fazerSetUpDoJogo() 
     else: sys.exit()
