@@ -51,12 +51,24 @@ def lerArquivoComPalavras():
     arq = open('jogo.txt', encoding='utf-8')
     palavras = arq.readlines()
     arq.close()
-    escolherPalavra(palavras, palavrasUsadas)
+    checarSeAindaHaPalavras(palavras)
+
+def checarSeAindaHaPalavras(palavras):
+    contador = 0
+    for i in range(len(palavras)):
+        palavraDisponibilizada = palavras[i]
+        if 'P:' in palavraDisponibilizada:
+            contador += 1
+    if(contador == len(palavrasUsadas)):
+        print(BLUE + 'Sinto muito. Acabaram-se as palavras.\U0001F61F' + RESET)
+        time.sleep(3)
+        sys.exit()
+    escolherPalavra(palavras)
 
 # PARA escolherPalavra, usamos o random na lista para sorteio. 
 # Enquanto tiver 'D:' na palavra e enquanto estiver na lista palavrasUsadas, continua sorteando
 # Quando encontrar a palavra, chamamos a função acharDicas com a lista e a palavra 
-def escolherPalavra(palavras, palavrasUsadas):
+def escolherPalavra(palavras):
     palavra = random.choice(palavras)
     while 'D:' in palavra or palavra[2:].strip() in palavrasUsadas:                         
         palavra = random.choice(palavras)
