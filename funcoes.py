@@ -41,6 +41,8 @@ def fazerSetUpDoJogo():
     arrLetrasParaTela.clear()
     arrLetrasParaEntrada.clear()
     codigo.clear()
+    vidas.clear()
+    recados.clear()
     letrasUsadas.clear()
     letrasErradas.clear()
     lerArquivoComPalavras()
