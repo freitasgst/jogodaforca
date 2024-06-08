@@ -25,6 +25,7 @@ arrLetrasParaEntrada = []                  # array para comparar entrada com pal
 codigo = []                                # array para mostrar a palavra como _ _ _ _ _ _ _
 letrasUsadas = []                          # onde vamos guardar todas as letras já usadas na rodada
 letrasErradas = []                         # onde vamos guardar só as letras usadas na rodada que não estão na palavra
+vidas = []                                 # onde vamos guardar perda de vidas
 recados = ['']
 duracao = 180                              # duração das rodadas
 controleDeTempoInicial = []                # array para guardar os tempos iniciais para calcular duração da rodada para saber se o jogador perdeu ou não
@@ -72,11 +73,10 @@ def acharDicas(palavras, palavra):
 # Chamamos a função de guardarPalavraQueSeraUsadaEmArrDePalavrasUsadas
 def guardarDicas(palavras, index):
     k = index + 1
-    while(k != len(palavras)):
-        while 'D:' in palavras[k]:
-            dicas.append(palavras[k][2:].strip())
-            k += 1
-        break
+    while 'D:' in palavras[k]:
+        dicas.append(palavras[k][2:].strip())
+        k += 1
+        if(k == len(palavras)): break
     guardarPalavraQueSeraUsadaEmArrDePalavrasUsadas(palavras[index])
 
 # PARA guardarPalavraQueSeraUsadaEmArrDePalavrasUsadas, tiramos 'P:' e a '\n'
@@ -127,7 +127,7 @@ def mostrarDicasNaTela():
 
 def jogo(palavra):
     timer = controlarTempo(time.time())
-    while(len(letrasErradas) < 7 and timer < duracao):
+    while(len(vidas) < 7 and timer < duracao):
         entrada = pedirAcaoJogador(palavra)
         timer = controlarTempo(time.time())
         setUpParaRedesenharTela(entrada)
@@ -136,8 +136,8 @@ def jogo(palavra):
 def pedirAcaoJogador(palavra):
     entrada = validarEntrada(palavra)
     if(entrada == 'DICA'):
-        # FUNÇÃO PARA TIRAR VIDA
         checarSeAindaHáDicasParaEntregar()
+        tirarVida() # FUNÇÃO PARA TIRAR VIDA
     elif(entrada == palavra): definirVitoria()
     else: checarSeLetraJaFoiUsada(entrada)
     return entrada
@@ -174,6 +174,9 @@ def checarSeAindaHáDicasParaEntregar():
         if(addAvisoDeDicasJaUsadas):
             dicasSorteadas.append(mensagem)
 
+def tirarVida():
+    vidas.append(1)
+
 def checarSeLetraJaFoiUsada(entrada):
     adicionaLetraJaUsada = True
     if (len(letrasUsadas) == 0):
@@ -208,7 +211,7 @@ def adicionarLetraNoArrayDeLetrasErradas(entrada):
                 break
     if adicionaLetraErrada: 
         letrasErradas.append(entrada)
-        # FUNÇÃO PARA TIRAR VIDA
+        tirarVida() # FUNÇÃO PARA TIRAR VIDA
 
 def setUpParaRedesenharTela(entrada): 
     os.system('cls' if os.name == 'nt' else 'clear')
