@@ -169,14 +169,14 @@ def checarSeLetraJaFoiUsada(entrada):
     adicionaLetraJaUsada = True
     if (len(letrasUsadas) == 0):
         letrasUsadas.append(entrada)
+        adicionaLetraJaUsada = False
     else:
         for i in range(len(letrasUsadas)):
             if(letrasUsadas[i] == entrada): 
                 adicionaLetraJaUsada = False
                 recados[0] = f'A letra {entrada} já foi usada'
                 break
-    if(adicionaLetraJaUsada):
-        letrasUsadas.append(entrada)
+    if adicionaLetraJaUsada: letrasUsadas.append(entrada)
     definirSeEntradaExisteNaPalavra(entrada)
 
 def definirSeEntradaExisteNaPalavra(entrada):
@@ -188,34 +188,21 @@ def definirSeEntradaExisteNaPalavra(entrada):
     if entradaErrada: adicionarLetraNoArrayDeLetrasErradas(entrada)
 
 def adicionarLetraNoArrayDeLetrasErradas(entrada):
-    if(len(letrasErradas) == 0): letrasErradas.append(entrada)
+    adicionaLetraErrada = True
+    if(len(letrasErradas) == 0): 
+        letrasErradas.append(entrada)
+        adicionaLetraErrada = False
     else:
         for i in range(len(letrasErradas)):
-            if entrada == letrasErradas[i]: 
+            if(entrada == letrasErradas[i]): 
+                adicionaLetraErrada = False
                 break
-            else: 
-                letrasErradas.append(entrada)
-                # FUNÇÃO PARA TIRAR VIDA
-                break
-    
-'''
-def adicionarLetraNoArrayDeLetrasErradas(entrada):
-    checaSeAdiciona = True
-    if(len(letrasErradas) == 0): letrasErradas.append(entrada)
-    else:
-        checaSeAdiciona = checarSeJaTemLetraNoArrayDeLetrasErradas(entrada)
-        if(checaSeAdiciona): 
-            letrasErradas.append(entrada)
-            print('letrasErradas', letrasErradas)
-            # FUNÇÃO PARA TIRAR VIDA
+    if adicionaLetraErrada: 
+        letrasErradas.append(entrada)
+        # FUNÇÃO PARA TIRAR VIDA
 
-def checarSeJaTemLetraNoArrayDeLetrasErradas(entrada):
-    for i in range(len(letrasErradas)):
-        if entrada == letrasErradas[i]: return False
-        else: return True
-'''
 def setUpParaRedesenharTela(entrada): 
-    # os.system('cls' if os.name == 'nt' else 'clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
     for j in range(len(arrLetrasParaTela)):
         if(arrLetrasParaEntrada[j] == entrada):
             codigo[j] = arrLetrasParaTela[j]
@@ -228,8 +215,6 @@ def redesenharTela():
     mostrarCodigoAtualizado()
     mostrarDicasNaTela()
     checarSeCodigoFoiResolvido()
-    print('letrasUsadas', letrasUsadas)
-    print('letrasErradas', letrasErradas)
 
 def mostrarRecadosNaTela():
     print(recados[0])
