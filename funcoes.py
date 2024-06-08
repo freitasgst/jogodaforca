@@ -14,11 +14,11 @@ dicas = []                                 # onde vamos guardar as dicas da roda
 dicasSorteadas = []
 matrizDeTroca = [
     ['A', 'Á', 'À', 'Â', 'Ã'], 
-    ['E', 'É', 'Ê', ' ', ' '], 
-    ['I', 'Í', ' ', ' ', ' '], 
+    ['E', 'É', 'Ê'], 
+    ['I', 'Í'], 
     ['O', 'Ó', 'Ò', 'Ô', 'Õ'], 
-    ['U', 'Ú', ' ', ' ', ' '], 
-    ['C', 'Ç', ' ', ' ', ' ']
+    ['U', 'Ú'], 
+    ['C', 'Ç']
 ]
 arrLetrasParaTela = []                     # array para mostrar a palavra gramaticamente correta na tela
 arrLetrasParaEntrada = []                  # array para comparar entrada com palavra ignorando acentos e ç
@@ -107,6 +107,8 @@ def definirPalavraParaEntrada():
 
 def desenharTelaInicialDoJogo(palavra):
     sortearDica()
+    mostrarRecadosNaTela()
+    mostrarListaDeLetrasErradas()
     for l in range(len(codigo)):
         if(l == len(codigo) - 1): print(codigo[l])
         else: print(f'{codigo[l]}', end='')
@@ -125,8 +127,9 @@ def mostrarDicasNaTela():
 
 def jogo(palavra):
     timer = controlarTempo(time.time())
-    while(len(letrasErradas) < 7):
+    while(len(letrasErradas) < 7 and timer < duracao):
         entrada = pedirAcaoJogador(palavra)
+        timer = controlarTempo(time.time())
         setUpParaRedesenharTela(entrada)
     definirDerrota(timer)
 
@@ -136,8 +139,7 @@ def pedirAcaoJogador(palavra):
         # FUNÇÃO PARA TIRAR VIDA
         checarSeAindaHáDicasParaEntregar()
     elif(entrada == palavra): definirVitoria()
-    else:
-        checarSeLetraJaFoiUsada(entrada)
+    else: checarSeLetraJaFoiUsada(entrada)
     return entrada
 
 def validarEntrada(palavra):
@@ -241,14 +243,14 @@ def checarSeCodigoFoiResolvido():
 
 def controlarTempo(agora): 
     index = len(controleDeTempoInicial) - 1
-    duracao = controleDeTempoInicial[index] - agora
+    duracao = round(agora - controleDeTempoInicial[index])
     return duracao
 
 def definirVitoria():
     mensagem = f'{GREEN}Parabéns, você ganhou!{RESET}\U0001F601'
     resultados.append(1)
     print(mensagem, '\n')
-    setUpParaDesenharTelaDeFimDeJogo()
+    desenharTelaDeFimDeJogo()
 
 def definirDerrota(timer):
     resultados.append(0)
@@ -256,23 +258,22 @@ def definirDerrota(timer):
     if(timer > duracao): mensagem = f'{RED}Sinto muito, o tempo acabou.{RESET} A palavra era {resposta}.\U0001F61E'
     else: mensagem = f'{RED}Sinto muito, as vidas acabaram.{RESET} A palavra era {resposta}.\U0001F61E'
     print(mensagem, '\n')
-    setUpParaDesenharTelaDeFimDeJogo()
+    desenharTelaDeFimDeJogo()
 
-def setUpParaDesenharTelaDeFimDeJogo():
-    time.sleep(2)
+def desenharTelaDeFimDeJogo():
     controleDeTempoFinal.append(time.time())
     for i in range(len(palavrasUsadas)):
-        print('i', i)
-        mins, secs = divmod(round(controleDeTempoFinal[i] - controleDeTempoInicial[i]), 60) 
-        mensagem = f'{i+1}ª rodada - {palavrasUsadas[i]} - {mins:02d}:{secs:02d}'
-        desenharTelaDeFimDeJogo(mensagem)
-
-def desenharTelaDeFimDeJogo(mensagem):
-    for i in range(len(palavrasUsadas)):
+        mensagem = f'{i+1}ª rodada - {palavrasUsadas[i]} - {calcularTempoDaRodada(i)}'
         if(resultados[i] == 1): print(GREEN + mensagem + RESET)
         else: print(RED + mensagem + RESET)
     input('Pressione ENTER para continuar')
     decisaoDoUsuarioParaFimDeJogo()
+
+def calcularTempoDaRodada(i):
+    duracao = controleDeTempoFinal[i] - controleDeTempoInicial[i]
+    mins = round(duracao / 60)
+    secs = round(duracao % 60)
+    return f'{mins:02d}:{secs:02d}'
     
 def decisaoDoUsuarioParaFimDeJogo():
     novoJogo = validarNovoJogo()
