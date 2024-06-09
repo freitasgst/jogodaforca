@@ -1,118 +1,54 @@
 P:advogado
-P:afta
-P:algarismo
-P:almanaque
-P:alquimia
+D:É uma profissão muito bem vista
+D:Trabalha com terno e lida com leis
+D:Profissional que representa clientes em processos judiciais e fornece aconselhamento jurídico.
 P:amendoim
-P:amnésia
-P:amplificar
-P:ampulheta
-P:ansioso
-P:aplaudir
-P:asterisco
-P:barulhento
-P:basquetebol
-P:beneficente
-P:berimbau
-P:bicarbonato
-P:bugiganga
-P:bumerangue
-P:burocracia
-P:caatinga
-P:cacto
-P:calibrado
-P:camuflagem
-P:candelabro
-P:catalisador
+D:É visto como um pestisco
+D:Combina com cerveja
+P:escola
+D:É uma instituição
+D:Tem muitas salas de aulas
+D:Lugar onde crianças e adolescentes vão para aprender com professores.
+P:futebol
+D:É um esporte
+D:Todo brasileiro nasce sabendo jogar
+D:Jogado com uma bola entre duas equipes de onze jogadores, onde o objetivo é marcar gols.
+P:calendário
+D:É um objeto que normalmente fica na parede ou em cima da mesa
+D:É usado para acompanhar e organizar os dias, semanas e meses do ano
+D:Utilizado para marcar datas comemorativas, feriados e eventos especiais, facilitando o planejamento e a organização do tempo.
 P:cérebro
+D:É um órgão do corpo humano
+D:Esse órgão é responsável por controlar todas as funções do corpo, incluindo pensamento, memória, emoções e movimentos
 P:cicatriz
-P:cleptomaníaco
-P:coincidência
-P:companhia
-P:consciente
-P:crepúsculo
-P:cronologia
-P:destruído
-P:diretriz
-P:dobradiça
-P:ecossistema
-P:embaixador
-P:empecilho
-P:entretido
-P:entrevista
-P:enxaqueca
-P:enxerido
-P:escombro
-P:espinafre
-P:estetoscópio
-P:exceção
-P:excêntrico
-P:excepcional
-P:flexível
-P:frustrado
-P:gargantilha
-P:glândula
-P:gnomo
+D:É um sinal na pele após um corte ou ferida
+D:Pode ser muito grande ou pequena
+D:Pode ser causada por cirurgias, queimaduras, cortes ou ferimentos, e geralmente apresenta uma textura diferente da pele ao redor.
+P:tomate
+D:É um legume, mas também é considerado uma fruta
+D:Está quase sempre presente nas saladas e pizzas
 P:grampeador
+D:É um objeto de escritório
+D:Utilizado para juntar várias folhas em um documento só
 P:hamster
+D:É um animal pequeno
+D:Primo dos ratos
+D:Pequeno roedor de estimação conhecido por suas bochechas rechonchudas.
 P:helicóptero
-P:hemisfério
-P:herdeiro
-P:idolatrada
-P:influência
-P:insignificância
-P:interruptor
-P:invertebrado
-P:iogurte
-P:lantejoula
-P:licenciado
-P:losango
+D:É um tipo de transporte
+D:É frequentemente usado para resgates de pessoas
+D:Tipo de aeronave que possui hélices horizontais, permitindo que ele voe para cima, para baixo e em todas as direções.
 P:madrasta
-P:magnético
-P:marimbondo
-P:mesclar
-P:meteorologia
+D:Pode ser membro de algumas famílias
+D:A cinderela tem uma muito malvada
+D:Mulher que se casa com o pai de alguém e assume o papel de mãe em relação aos filhos dele.
 P:microfone
-P:microscópio
-P:milionário
-P:mordaz
-P:necrosar
-P:oscilação
-P:paralisado
-P:pedágio
-P:perturbar
-P:piripaque
-P:pneumonia
-P:poliomielite
-P:presságio
-P:privilégio
-P:prodígio
-P:psicanálise
-P:quadriciclo
-P:quermesse
-P:quinquilharia
-P:reciclar
-P:reflorescer
-P:reivindicar
-P:retrovisor
-P:ritmo
-P:seborreia
-P:sensatez
-P:serelepe
-P:serpentina
-P:simplório
-P:sobrevivente
-P:supérfluo
-P:suscetível
-P:termômetro
-P:travesseiro
-P:trilogia
-P:universidade
-P:universo
-P:vangloriar
+D:É um objeto usado em shows e eventos
+D:Usado para amplificar o som da voz
+D:Objeto essencial em diversas áreas como música, comunicação, entretenimento e gravação de áudio.
+P:pneu
+D:É um objeto com formato circular
+D:Sem ele um carro não pode andar
 P:ventilador
-P:xilindró
-P:xadrez
-P:ziguezague
-P:zodíaco
-P:zumbido
+D:É um objeto muito usado no verão
+D:Pode ser instalado no teto ou ser portátil

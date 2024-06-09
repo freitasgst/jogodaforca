@@ -1,74 +1,27 @@
-import funcoes                                       # importa arquivo funcoes.py onde deixamos as funções do jogo
+import funcoes, sys
 
-arq = open('jogoParaTestes.txt')                     # abre o arquivo .txt com as palavras e as dicas
+# Desenho da tela inicial
+print("Nome: Cibele Gameleira - RA: 1680972411009 \nNome: Gabriela Freitas - RA: 1680972411001 \nNome: Letícia Nascimento - RA: 1680972411037")
 
-palavras = arq.readlines()                           # lê as linhas do arq em lista
-palavra = funcoes.escolhePalavra(palavras)           # escolhe a palavra da lista enviada como parâmetro
-dicas = funcoes.guardaDicas(palavras, palavra, 2)    # envia a lista, a palavra escolhida e a qtd de dicas. recebe dicas em lista.
+print("Jogo[X] \nDicas[X] \nControle de tempo[X] \n")
 
-letrasUsadas = ['']                                  # onde vamos guardar as letras já usadas
-letrasErradas = ['']                                 # onde vamos guardar as letras usadas que não estão na palavra
+print("Bem vindo(a) a um jogo da forca inovador. Esteja preparado(a) para esse desafio!")
 
-arq.close()                                          # fecha o arquivo .txt
+print("Antes de jogar, você precisa saber de algumas regras: \n")
+print("- Você terá 7 vidas para acertar uma palavra;")
+print("- Você terá 3 minutos para acertar uma palavra;")
+print("- Você pode pedir dicas sobre as palavras, mas cuidado, elas custam uma vida;")
+print("- Toda palavra uma ou mais dicas disponíveis;")
+print("- Se você descobrir a palavra, pode digitar ela inteira ao invés de só uma letra;")
+print("- Se suas vidas ou o tempo do jogo acabar antes de você adivinhar a palavra, você perde o jogo;")
+print("- Perdendo ou ganhando, você sempre pode jogar de novo.\n")
 
-arrLetras = ['' for aux in range(len(palavra))]
-for i in range(len(palavra)):
-    arrLetras[i] = palavra[i].upper()
-codigo = ['_ ' for aux in range(len(arrLetras))]     # cria os _ _ _ _ _ _
+# Pede ação do jogador, para que a contagem de tempo comece apenas quando o jogador estiver preparado
+inicio = input('Pronto para começar? [Y/n]: ').upper()
+while(inicio != 'Y' and inicio != 'N'):
+    inicio = input('Comando inválido. Digite Y para começar ou N para sair do jogo: ').upper()
 
-# Condições para continuar o jogo
-palavraDecifrada = True
-timer = funcoes.countdown(180)
-
-while (palavraDecifrada and timer):
-    entrada = input('\nDigite uma letra ou peça por uma dica: ').upper()
-
-    # Validações
-    while(not entrada.isalpha() or (len(entrada) != 1 and entrada != 'DICA')):
-        print('Entrada inválida. Digite uma letra por vez.')
-        entrada = input().upper()
-
-    if(entrada == 'DICA'):
-        print(entrada)
-    else:
-        addArrLetrasUsadas = True
-        entradaErrada = True
-        palavraDecifrada = True
-        # Checa se a letra já foi usada
-        for i in range(len(letrasUsadas)):
-            if(letrasUsadas[i] == entrada):
-                print(f'A letra {entrada} já foi usada')
-                addArrLetrasUsadas = False
-                break
-        
-        for j in range(len(arrLetras)):
-            if(arrLetras[j] == entrada):
-                codigo[j] = arrLetras[j]
-                entradaErrada = False
-            if(codigo[j] == '_'):
-                palavraDecifrada = False
-        
-        # Caso a entradaErrada = True, significa que nenhuma letra da palavra bate com a entrada. Guarda em array
-        if(entradaErrada):
-            letrasErradas.append(entrada)
-        
-        # Adiciona a letra apenas se ela não estiver já no array
-        if(addArrLetrasUsadas):
-            letrasUsadas.append(entrada)
-        
-        # Mostra letras erradas
-        print('Letras erradas: ', end = '')
-        for k in range(len(letrasErradas)):
-            if(k == len(letrasErradas) - 1):
-                print(f'{letrasErradas[k]}')
-            else:
-                print(f'{letrasErradas[k]}, ', end='')
-        
-        # Mostra a palavra
-        for l in range(len(codigo)):
-            if(l == len(codigo) - 1):
-                print(codigo[l])
-            else:
-                print(f'{codigo[l]}', end='')
-
-print('Fim de jogo!')
+if(inicio == 'Y'):
+    funcoes.fazerSetUpDoJogo()
+else:
+    sys.exit()
