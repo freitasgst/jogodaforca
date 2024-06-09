@@ -66,7 +66,6 @@ def checarSeAindaHaPalavras(palavras):
         if 'P:' in palavraDisponibilizada:
             contador += 1
     if(contador == len(palavrasUsadas)):
-        errorsService.showResult(0, 7)
         print(BLUE + 'Sinto muito. Acabaram-se as palavras.\U0001F61F' + RESET)
         time.sleep(3)
         sys.exit()
@@ -222,7 +221,6 @@ def checarSeAindaHáDicasParaEntregar():
 def tirarVida():
     print('TIRANDO VIDA')
     print(len(vidas), 7 - len(vidas))
-    errorsService.showResult(len(vidas), 7 - len(vidas))
     vidas.append(0)
 
 def checarSeLetraJaFoiUsada(entrada):
@@ -314,10 +312,8 @@ def definirDerrota(timer):
     resultados.append(0)
     resposta = ''.join(arrLetrasParaTela)
     if(timer > duracao):
-        errorsService.showResult(0, 7) 
         mensagem = f'{RED}Sinto muito, o tempo acabou.{RESET} A palavra era {resposta}.\U0001F61E'
     else: 
-        errorsService.showResult(0, 7)
         mensagem = f'{RED}Sinto muito, as vidas acabaram.{RESET} A palavra era {resposta}.\U0001F61E'
     print(mensagem, '\n')
     desenharTelaDeFimDeJogo()
