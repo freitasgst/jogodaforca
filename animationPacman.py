@@ -135,7 +135,6 @@ def showGameOver():
     time.sleep(2)
 
 def showError(quantityAvaliable, quantityErrors):  
-    print(quantityAvaliable)
     if(quantityAvaliable > 0):
         showHungryPacman()
         showEatingPacman()
