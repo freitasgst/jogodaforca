@@ -1,4 +1,4 @@
-import random, time, sys, os, errorsService
+import random, time, sys, os, errorsService, animationPacman
 
 # Variáveis GLOBAIS
 RED   = "\033[1;31m"  
@@ -66,8 +66,8 @@ def checarSeAindaHaPalavras(palavras):
         if 'P:' in palavraDisponibilizada:
             contador += 1
     if(contador == len(palavrasUsadas)):
+        errorsService.showResult(0, 7)
         print(BLUE + 'Sinto muito. Acabaram-se as palavras.\U0001F61F' + RESET)
-        errorsService.showResult(0, 7);
         time.sleep(3)
         sys.exit()
     escolherPalavra(palavras)
@@ -179,7 +179,8 @@ def jogar(palavra):
 # Independente do que for, a função retorna a entrada validada, a qual será guardada em uma variável na função jogar para que essa possa envia-la como parâmetro para setUpParaRedesenharTela
 def pedirAcaoDoJogador(palavra):
     entrada = validarEntrada(palavra)
-    if(entrada == 'DICA'): checarSeAindaHáDicasParaEntregar()
+    if(entrada == 'DICA'): 
+        checarSeAindaHáDicasParaEntregar()
     elif(entrada == palavra): definirVitoria()
     else: checarSeLetraJaFoiUsada(entrada)
     return entrada
@@ -219,6 +220,9 @@ def checarSeAindaHáDicasParaEntregar():
             dicasSorteadas.append(mensagem)
 
 def tirarVida():
+    print('TIRANDO VIDA')
+    print(len(vidas), 7 - len(vidas))
+    errorsService.showResult(len(vidas), 7 - len(vidas))
     vidas.append(0)
 
 def checarSeLetraJaFoiUsada(entrada):
@@ -309,12 +313,18 @@ def definirVitoria():
 def definirDerrota(timer):
     resultados.append(0)
     resposta = ''.join(arrLetrasParaTela)
-    if(timer > duracao): mensagem = f'{RED}Sinto muito, o tempo acabou.{RESET} A palavra era {resposta}.\U0001F61E'
-    else: mensagem = f'{RED}Sinto muito, as vidas acabaram.{RESET} A palavra era {resposta}.\U0001F61E'
+    if(timer > duracao):
+        errorsService.showResult(0, 7) 
+        mensagem = f'{RED}Sinto muito, o tempo acabou.{RESET} A palavra era {resposta}.\U0001F61E'
+    else: 
+        errorsService.showResult(0, 7)
+        mensagem = f'{RED}Sinto muito, as vidas acabaram.{RESET} A palavra era {resposta}.\U0001F61E'
     print(mensagem, '\n')
     desenharTelaDeFimDeJogo()
 
 def desenharTelaDeFimDeJogo():
+    print('Packman com fome...')
+    animationPacman.showSadPacman()
     controleDeTempoFinal.append(time.time())
     for i in range(len(palavrasUsadas)):
         mensagem = f'{i+1}ª rodada - {palavrasUsadas[i]} - {calcularTempoDaRodada(i)}'

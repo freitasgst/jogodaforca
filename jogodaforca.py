@@ -1,4 +1,4 @@
-import funcoes, sys
+import funcoes, sys, errorsService
 
 # Desenho da tela inicial
 print("Nome: Cibele Gameleira - RA: 1680972411009 \nNome: Gabriela Freitas - RA: 1680972411001 \nNome: Letícia Nascimento - RA: 1680972411037")
@@ -15,7 +15,7 @@ print("- Toda palavra uma ou mais dicas disponíveis;")
 print("- Se você descobrir a palavra, pode digitar ela inteira ao invés de só uma letra;")
 print("- Se suas vidas ou o tempo do jogo acabar antes de você adivinhar a palavra, você perde o jogo;")
 print("- Perdendo ou ganhando, você sempre pode jogar de novo.\n")
-
+errorsService.showResult(7, 0)
 # Pede ação do jogador, para que a contagem de tempo comece apenas quando o jogador estiver preparado
 inicio = input('Pronto para começar? [Y/n]: ').upper()
 while(inicio != 'Y' and inicio != 'N'):

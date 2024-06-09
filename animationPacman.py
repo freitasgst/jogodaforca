@@ -1,35 +1,40 @@
 import time
 
-animation1Pacman = r' __________  '
-animation2Pacman = r'/    X  X  \ '
-animation3Pacman = r'|          | '
-animation4Pacman = r'|     /\/\/  '
-animation5Pacman = r'|    /      __ '
-animation6Pacman = r'|    \     |__|'
-animation7Pacman = r'|     \/\/\  '
-animation8Pacman = r'|          | '
-animation9Pacman = r'\__________/ '
-animation10Pacman = r'|  //  ___ |'
-animation11Pacman = r'|    //___\|'
-animation12Pacman = r'|    \\___/|'
-animation13Pacman = r'|          |'
-animation14Pacman = r'/    ^  ^  \ '
-animation16Pacman = r'|    /  __   '
-animation17Pacman = r'|    \ |__|  '
-animation18Pacman = r'|          |'
-animation19Pacman = r'|     \____|'
-animation20Pacman = r'|          |'
-animation21Pacman = r'|          |'
-animation22Pacman = r'|      ____|'
-animation23Pacman = r'|          |'
-animation24Pacman = r'|   (_) ___|'
-animation25Pacman = r'|      /   |'
-animation26Pacman = r'|          |'
-animation1GameOver = r' ____                        ___                '              
-animation2GameOver = r'/ ___|  ___ _ __ ___   ___  / _ \__   _____ _ __'
-animation3GameOver = r'| |  _ / _ |  _   _ \ / _ \| | | \ \ / / _ \ __|'
-animation4GameOver = r'| |_| | (_|| | | | | |  __/| |_| |\ V /  __/ |  ' 
-animation5GameOver = r'\_____|\___|_| |_| |_|\___| \___/  \_/ \___|_|  '
+YELLOW = "\033[1;33m"
+RED   = "\033[1;31m"  
+RESET  = "\033[0;0m"
+
+animation1Pacman  = YELLOW + r' __________  ' + RESET
+animation2Pacman  = YELLOW + r'/    X  X  \ ' + RESET
+animation3Pacman  = YELLOW + r'|          | ' + RESET
+animation4Pacman  = YELLOW + r'|     /\/\/  ' + RESET
+animation5Pacman  = YELLOW + r'|    /      __ ' + RESET
+animation6Pacman  = YELLOW + r'|    \     |__|' + RESET
+animation7Pacman  = YELLOW + r'|     \/\/\  ' + RESET
+animation8Pacman  = YELLOW + r'|          | ' + RESET
+animation9Pacman  = YELLOW + r'\__________/ ' + RESET
+animation10Pacman = YELLOW + r'|  //  ___ |' + RESET
+animation11Pacman = YELLOW + r'|    //___\|' + RESET
+animation12Pacman = YELLOW + r'|    \\___/|' + RESET
+animation13Pacman = YELLOW + r'|          |' + RESET
+animation14Pacman = YELLOW + r'/    ^  ^  \ ' + RESET
+animation16Pacman = YELLOW + r'|    /  __   ' + RESET
+animation17Pacman = YELLOW + r'|    \ |__|  ' + RESET
+animation18Pacman = YELLOW + r'|          |' + RESET
+animation19Pacman = YELLOW + r'|     \____|' + RESET
+animation20Pacman = YELLOW + r'|          |' + RESET
+animation21Pacman = YELLOW + r'|          |' + RESET
+animation22Pacman = YELLOW + r'|      ____|' + RESET
+animation23Pacman = YELLOW + r'|          |' + RESET
+animation24Pacman = YELLOW + r'|   (_) ___|' + RESET
+animation25Pacman = YELLOW + r'|      /   |' + RESET
+animation26Pacman = YELLOW + r'|          |'
+
+animation1GameOver = RED + r' ____                        ___                ' + RESET
+animation2GameOver = RED + r'/ ___|  ___ _ __ ___   ___  / _ \__   _____ _ __' + RESET
+animation3GameOver = RED + r'| |  _ / _ |  _   _ \ / _ \| | | \ \ / / _ \ __|' + RESET
+animation4GameOver = RED + r'| |_| | (_|| | | | | |  __/| |_| |\ V /  __/ |  ' + RESET
+animation5GameOver = RED + r'\_____|\___|_| |_| |_|\___| \___/  \_/ \___|_|  ' + RESET
 
 animationFood1 = r' __'
 animationFood2 = r'|__|'
@@ -133,6 +138,7 @@ def showGameOver():
     for i in range(len(gameOver)):
         print(gameOver[i][0])
     time.sleep(2)
+    print('\n')
 
 def showError(quantityAvaliable, quantityErrors):  
     if(quantityAvaliable > 0):
