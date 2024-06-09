@@ -1,4 +1,4 @@
-import random, time, sys, os
+import random, time, sys, os, errorsService
 
 # Variáveis GLOBAIS
 RED   = "\033[1;31m"  
@@ -67,6 +67,7 @@ def checarSeAindaHaPalavras(palavras):
             contador += 1
     if(contador == len(palavrasUsadas)):
         print(BLUE + 'Sinto muito. Acabaram-se as palavras.\U0001F61F' + RESET)
+        errorsService.showResult(0, 7);
         time.sleep(3)
         sys.exit()
     escolherPalavra(palavras)
