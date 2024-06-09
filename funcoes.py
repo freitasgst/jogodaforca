@@ -319,13 +319,15 @@ def definirDerrota(timer):
     desenharTelaDeFimDeJogo()
 
 def desenharTelaDeFimDeJogo():
-    print('Packman com fome...')
-    animationPacman.showSadPacman()
+
     controleDeTempoFinal.append(time.time())
     for i in range(len(palavrasUsadas)):
         mensagem = f'{i+1}ª rodada - {palavrasUsadas[i]} - {calcularTempoDaRodada(i)}'
         if(resultados[i] == 1): print(GREEN + mensagem + RESET)
         else: print(RED + mensagem + RESET)
+    print('Packman com fome...')
+    animationPacman.showSadPacman()
+    animationPacman.showGameOver()
     decisaoDoUsuarioParaFimDeJogo()
 
 def calcularTempoDaRodada(i):
