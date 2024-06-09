@@ -50,5 +50,31 @@ https://www.youtube.com/playlist?list=PLcoYAcR89n-qbO7YAVj5S0alABLis_QVU
 
 https://docs.github.com/en/get-started/using-github/github-flow
 
+### Para formular as funções
+## Regras
+1. Nomes óbvios e descritivos em camelCase
+2. Devem ser pequenas (o ideal seria, no máximo, de 4 linhas)
+3. Deve fazer apenas uma coisa
+4. Não deve ser possível retirar qualquer linha da função e colocá-la em outra sem ser apenas uma reformulação
+5. Obviamente transparente
+6. Deve contar uma história
+7. Cada função deve levar você à próxima em uma “ordem atraente”
+8. Ler o código de cima para baixo
+9. Quanto aos parâmetros:
+    a. Quanto à quantidade:
+        * 0 → ideal
+        * 1 e 2 → ok
+        * 3 → evitar situações se possível
+        * 4 + → não
+    b. Evitar parâmetros lógicos
+10. Evitar repetições
+
+## Descrições
+# Exemplo
+“TO RenderPageWithSetupsAndTeardowns, verificamos se a página é de teste, se for, incluímos setups e teardowns. Em ambos os casos, exibimos a página em HTML” (pág. 36)
+Com base no livro Código Limpo, do Robert C. Martin
+
+TO → PARA
+
 ### Canal de organização
 Usaremos o Trello
