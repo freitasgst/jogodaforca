@@ -26,35 +26,39 @@ codigo = []                                # array para mostrar a palavra como _
 letrasUsadas = []                          # onde vamos guardar todas as letras já usadas na rodada
 letrasErradas = []                         # onde vamos guardar só as letras usadas na rodada que não estão na palavra
 vidas = []                                 # onde vamos guardar perda de vidas
-recados = ['']
+recados = ['']                             # onde guardamos qualquer mensagem pro jogador; necessário devido ao cls
 duracao = 180                              # duração das rodadas
 controleDeTempoInicial = []                # array para guardar os tempos iniciais para calcular duração da rodada para saber se o jogador perdeu ou não
 controleDeTempoFinal = []                  # array para guardar os tempos finais para calcular duração da rodada para mostrar no board de status no final
 resultados = []                            # array para guardar se é vitória ou derrota para mostrar no board de status no final
 
-# PARA fazerSetUpDoJogo, devemos limpar as variáveis do jogo anterior.
+# PARA fazerSetUpDoJogo, devemos limpar as variáveis do jogo anterior, 
+# mantendo apenas os arrays de controle de tempo, resultados e palavras usadas, que serão usadas para a tela final e validação de palavra sorteada.
 # Chamamos a função de lerArquivoComPalavras
 def fazerSetUpDoJogo():
     os.system('cls' if os.name == 'nt' else 'clear')
+    if(len(recados) != 0): recados[0] = ''
     dicas.clear()
     dicasSorteadas.clear()
     arrLetrasParaTela.clear()
     arrLetrasParaEntrada.clear()
     codigo.clear()
     vidas.clear()
-    recados.clear()
     letrasUsadas.clear()
     letrasErradas.clear()
     lerArquivoComPalavras()
 
 # PARA lerArquivoComPalavras, devemos abrir o arquivo .txt com as palavras e dicas e guardar essa informação em uma lista. 
-# Chamamos a função de escolherPalavra
+# Chamamos a função de checarSeAindaHaPalavras, enviando a essa lista como parâmetro
 def lerArquivoComPalavras():
     arq = open('jogo.txt', encoding='utf-8')
     palavras = arq.readlines()
     arq.close()
     checarSeAindaHaPalavras(palavras)
 
+# PARA checarSeAindaHaPalavras, contamos quantas palavras 'P:' há na lista.
+# Se esse número for igual a quantidade de palavras na variável, então sai do jogo
+# Caso contrário, chamamos escolherPalavra, enviando-a a lista
 def checarSeAindaHaPalavras(palavras):
     contador = 0
     for i in range(len(palavras)):
@@ -83,23 +87,27 @@ def acharDicas(palavras, palavra):
         if(palavras[i] == palavra):
             guardarDicas(palavras, i)
 
-# PARA guardarDicas, procuramos as palavras com 'D:' a partir do index da palavra sorteado recebido
-# Chamamos a função de guardarPalavraQueSeraUsadaEmArrDePalavrasUsadas
+# PARA guardarDicas, guardamos as palavras com 'D:' a partir do index da palavra sorteada recebido em um array de dicas
+# Quando encontrar um 'P:', chamamos a função de guardarPalavraQueSeraUsadaEmArrDePalavrasUsadas
 def guardarDicas(palavras, index):
     k = index + 1
     while 'D:' in palavras[k]:
         dicas.append(palavras[k][2:].strip())
         k += 1
-        if(k == len(palavras)): break
+        if(k == len(palavras)): break                                   # Necessário para k não ficar out of range caso a palavra sorteada tenha sido a última da lista
     guardarPalavraQueSeraUsadaEmArrDePalavrasUsadas(palavras[index])
 
 # PARA guardarPalavraQueSeraUsadaEmArrDePalavrasUsadas, tiramos 'P:' e a '\n'
-# Chamamos a função setUpTelaInicialDoJogo
+# Chamamos a função setUpTelaInicialDoJogo, enviando-a a palavra tratada
 def guardarPalavraQueSeraUsadaEmArrDePalavrasUsadas(palavraBruta):
     palavra = palavraBruta[2:].strip()
     palavrasUsadas.append(palavra)
     setUpTelaInicialDoJogo(palavra)
 
+# PARA setUpTelaInicialDoJogo, começamos "dando início ao cronômetro", salvando o tempo no array de tempos iniciais
+# Salvamos as letras originais da palavra em um array e o mesmo número de letras de '_ ' em outro
+# Com cada letra, chamamos a função de trocarLetrasParaCriarArrLetrasParaEntrada
+# No final, chamamos definirPalavraParaEntrada
 def setUpTelaInicialDoJogo(palavra):
     controleDeTempoInicial.append(time.time())
     for i in range(len(palavra)):
@@ -108,6 +116,9 @@ def setUpTelaInicialDoJogo(palavra):
         codigo.append('_ ')
     definirPalavraParaEntrada()
 
+# PARA trocarLetrasParaCriarArrLetrasParaEntrada passamos pela matriz e, 
+# se alguma letra da palavra sorteada for acentuada, trocamos pela letra na posição 0 daquela linha
+# Salvamos as letras "tratadas" em um array
 def trocarLetrasParaCriarArrLetrasParaEntrada(letra):
     for linha in range(len(matrizDeTroca)):
         for coluna in range(len(matrizDeTroca[linha])):
@@ -115,10 +126,16 @@ def trocarLetrasParaCriarArrLetrasParaEntrada(letra):
                     letra = matrizDeTroca[linha][0]
     arrLetrasParaEntrada.append(letra)
 
+# PARA definirPalavraParaEntrada, juntamos as letras do array com letras sem acentos. 
+# Chamamos a função desenharTelaInicialDoJogo enviando a nova palavra (palavra sorteada sem acentos)
 def definirPalavraParaEntrada():
     novaPalavra = ''.join(arrLetrasParaEntrada)
     desenharTelaInicialDoJogo(novaPalavra)
 
+# PARA desenharTelaInicialDoJogo, precisamos chamar função de sortearDica para sortear a dica inicial, 
+# Mostrar recados existentes, listas de letras erradas, o array codigo, com _ _ _s, e as dicas já existentes (que deve ser apenas uma)
+# Por ser a tela inicial, os recados e letras erradas devem estar vazios, mas o colocamos para manter sempre o mesmo espaço entre as linhas
+# Ao fim, chamamos a função jogo, enviando a nova palavra
 def desenharTelaInicialDoJogo(palavra):
     sortearDica()
     mostrarRecadosNaTela()
@@ -127,35 +144,46 @@ def desenharTelaInicialDoJogo(palavra):
         if(l == len(codigo) - 1): print(codigo[l])
         else: print(f'{codigo[l]}', end='')
     mostrarDicasNaTela()
-    jogo(palavra)
+    jogar(palavra)
 
+# PARA sortearDica, sorteamos um número aleatório de 0 a tamanho do array - 1. Esse vai ser o índice da dica na lista. 
+# Usamos o .pop() para alterar o array de dicas, tirando a dica já sorteada, e guardando-a no array de dicas sorteadas
 def sortearDica():
     indexDasDicas = len(dicas) - 1
     indexSorteado = random.randint(0, indexDasDicas)
     dicasSorteadas.append(f'Dica: {dicas.pop(indexSorteado)}')
 
+# PARA mostrarDicasNaTela, percorremos o array com um for dando print nas dicas, apenas se o array não estiver vazio
 def mostrarDicasNaTela():
     if(len(dicasSorteadas) != 0):
         for i in range(len(dicasSorteadas)):
             print(dicasSorteadas[i])
 
-def jogo(palavra):
+# PARA jogar, pegamos o tempo da jogada para chamar a função controlarTempo() e ver a duração do jogo até agora (timer)
+# Enquanto o array com vidas tiver o tamanho menor que 7 e o timer for menor que a duração, nós vamos
+# 1. Pedir uma ação para o usuário 2. Gravar mais uma vez o tempo da rodada para a duração 3. Chamar a função de setUpParaRedesenharTela
+# Quando sair do while, chamamos a função de definirDerrota com o timer como parâmetro
+def jogar(palavra):
     timer = controlarTempo(time.time())
     while(len(vidas) < 7 and timer < duracao):
-        entrada = pedirAcaoJogador(palavra)
+        entrada = pedirAcaoDoJogador(palavra)
         timer = controlarTempo(time.time())
         setUpParaRedesenharTela(entrada)
     definirDerrota(timer)
 
-def pedirAcaoJogador(palavra):
+# PARA pedirAcaoDoJogador, validamos uma entrada (input) chamando a função validarEntrada, enviando a palavra sorteada sem acentos como parâmetro
+# Se a entrada validada for um a str 'DICA', chamamos a função checarSeAindaHáDicasParaEntregar
+# Se for a entrada, depois de transformada em entrada sem acentos, for igual a palavra, depois de transformada em palavra sem acento, chamamos definirVitoria() 
+# Se for outra opção, chamamos a função checarSeLetraJaFoiUsada
+# Independente do que for, a função retorna a entrada validada, a qual será guardada em uma variável na função jogar para que essa possa envia-la como parâmetro para setUpParaRedesenharTela
+def pedirAcaoDoJogador(palavra):
     entrada = validarEntrada(palavra)
-    if(entrada == 'DICA'):
-        checarSeAindaHáDicasParaEntregar()
-        tirarVida() # FUNÇÃO PARA TIRAR VIDA
+    if(entrada == 'DICA'): checarSeAindaHáDicasParaEntregar()
     elif(entrada == palavra): definirVitoria()
     else: checarSeLetraJaFoiUsada(entrada)
     return entrada
 
+# PARA validarEntrada, o usuário pede input do
 def validarEntrada(palavra):
     entrada = input('\nDigite uma letra ou peça por uma dica: ').upper()
     novaEntrada = trocarEntradaParaJogo(entrada)
@@ -177,6 +205,7 @@ def trocarEntradaParaJogo(entrada):
 def checarSeAindaHáDicasParaEntregar():
     mensagem = 'Você já usou todas as suas dicas'
     if (len(dicas) != 0): 
+        tirarVida() # FUNÇÃO PARA TIRAR VIDA
         sortearDica() 
         mostrarDicasNaTela()
     else: 
@@ -189,7 +218,7 @@ def checarSeAindaHáDicasParaEntregar():
             dicasSorteadas.append(mensagem)
 
 def tirarVida():
-    vidas.append(1)
+    vidas.append(0)
 
 def checarSeLetraJaFoiUsada(entrada):
     adicionaLetraJaUsada = True
@@ -200,7 +229,7 @@ def checarSeLetraJaFoiUsada(entrada):
         for i in range(len(letrasUsadas)):
             if(letrasUsadas[i] == entrada): 
                 adicionaLetraJaUsada = False
-                recados[0] = f'A letra {entrada} já foi usada'
+                if(len(recados) != 0): recados[0] = (f'A letra {entrada} já foi usada')
                 break
     if adicionaLetraJaUsada: letrasUsadas.append(entrada)
     definirSeEntradaExisteNaPalavra(entrada)
@@ -233,7 +262,7 @@ def setUpParaRedesenharTela(entrada):
         if(arrLetrasParaEntrada[j] == entrada):
             codigo[j] = arrLetrasParaTela[j]
     redesenharTela()
-    recados[0] = ''
+    if(len(recados) != 0): recados[0] = ''
 
 def redesenharTela(): 
     mostrarRecadosNaTela()
@@ -243,7 +272,7 @@ def redesenharTela():
     checarSeCodigoFoiResolvido()
 
 def mostrarRecadosNaTela():
-    print(recados[0])
+    if(len(recados) != 0): print(recados[0])
 
 def mostrarListaDeLetrasErradas():
     if(len(letrasErradas) != 0):
