@@ -9,10 +9,11 @@ print("Bem vindo(a) a um jogo da forca inovador. Esteja preparado(a) para esse d
 
 print("Antes de jogar, você precisa saber de algumas regras: \n")
 print("- Você terá 7 vidas para acertar uma palavra;")
-print("- As palavras não contém acentuação;")
+print("- Você terá 3 minutos para acertar uma palavra;")
 print("- Você pode pedir dicas sobre as palavras, mas cuidado, elas custam uma vida;")
 print("- Toda palavra uma ou mais dicas disponíveis;")
-print("- Se suas vidas acabarem antes de adivinhar a palavra, você perde o jogo;")
+print("- Se você descobrir a palavra, pode digitar ela inteira ao invés de só uma letra;")
+print("- Se suas vidas ou o tempo do jogo acabar antes de você adivinhar a palavra, você perde o jogo;")
 print("- Perdendo ou ganhando, você sempre pode jogar de novo.\n")
 
 # Pede ação do jogador, para que a contagem de tempo comece apenas quando o jogador estiver preparado
