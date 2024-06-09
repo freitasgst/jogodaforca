@@ -188,7 +188,7 @@ def validarEntrada(palavra):
     entrada = input('\nDigite uma letra ou peça por uma dica: ').upper()
     novaEntrada = trocarEntradaParaJogo(entrada)
     while(not entrada.isalpha() or (len(entrada) != 1 and (entrada != 'DICA' and novaEntrada != palavra))):
-        entrada = input('\nEntrada inválida: ').upper()
+        entrada = input('\nEntrada inválida, digite apenas uma letra ou peça por uma dica ou escreva a palavra correta: ').upper()
         novaEntrada = trocarEntradaParaJogo(entrada)
     return novaEntrada
 
@@ -331,8 +331,11 @@ def decisaoDoUsuarioParaFimDeJogo():
     time.sleep(1)
     novoJogo = validarNovoJogo()
     if(novoJogo == 'Y'): fazerSetUpDoJogo() 
-    else: sys.exit()
-
+    else:
+        print("Obrigado pela participação. Até logo!")
+        time.sleep(2)
+        (sys.exit())
+        
 def validarNovoJogo():
     novoJogo = input('Deseja jogar novamente? [Y/n]: ').upper()
     while(novoJogo != 'Y' and novoJogo != 'N'):
