@@ -45,6 +45,10 @@ Qualquer código de uma deve ser testado pelas outras duas
 10. aceitar apertando merge
 11. deletar o branch
 
-Mais: https://www.youtube.com/playlist?list=PLcoYAcR89n-qbO7YAVj5S0alABLis_QVU
+Mais: 
+https://www.youtube.com/playlist?list=PLcoYAcR89n-qbO7YAVj5S0alABLis_QVU
 
 https://docs.github.com/en/get-started/using-github/github-flow
+
+### Canal de organização
+Usaremos o Trello

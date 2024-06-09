@@ -165,7 +165,7 @@ def mostrarDicasNaTela():
 # Quando sair do while, chamamos a função de definirDerrota com o timer como parâmetro
 def jogar(palavra):
     timer = controlarTempo(time.time())
-    while(len(vidas) < 7 and timer < duracao):
+    while(len(vidas) < 6 and timer < duracao):     # O len(vidas) deve ser menor que (QTD de vidas - 1) porque a tela é reescrita antes da validação
         entrada = pedirAcaoDoJogador(palavra)
         timer = controlarTempo(time.time())
         setUpParaRedesenharTela(entrada)
@@ -188,6 +188,9 @@ def validarEntrada(palavra):
     entrada = input('\nDigite uma letra ou peça por uma dica: ').upper()
     novaEntrada = trocarEntradaParaJogo(entrada)
     while(not entrada.isalpha() or (len(entrada) != 1 and (entrada != 'DICA' and novaEntrada != palavra))):
+        if(len(entrada) != 1 and (entrada != 'DICA' and novaEntrada != palavra)): 
+            print('Palavra errada, você perdeu uma vida.')
+            tirarVida()
         entrada = input('\nEntrada inválida: ').upper()
         novaEntrada = trocarEntradaParaJogo(entrada)
     return novaEntrada
