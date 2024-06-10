@@ -1,4 +1,4 @@
-import random, time, sys, os
+import random, time, sys, os, errorsService, animationPacman
 
 # Variáveis GLOBAIS
 RED   = "\033[1;31m"  
@@ -138,6 +138,7 @@ def definirPalavraParaEntrada():
 # Ao fim, chamamos a função jogo, enviando a nova palavra
 def desenharTelaInicialDoJogo(palavra):
     sortearDica()
+    errorsService.showResult(7, 0)
     mostrarRecadosNaTela()
     mostrarListaDeLetrasErradas()
     for l in range(len(codigo)):
@@ -165,7 +166,7 @@ def mostrarDicasNaTela():
 # Quando sair do while, chamamos a função de definirDerrota com o timer como parâmetro
 def jogar(palavra):
     timer = controlarTempo(time.time())
-    while(len(vidas) < 6 and timer < duracao):     # O len(vidas) deve ser menor que (QTD de vidas - 1) porque a tela é reescrita antes da validação
+    while(len(vidas) < 7 and timer < duracao):     
         entrada = pedirAcaoDoJogador(palavra)
         timer = controlarTempo(time.time())
         setUpParaRedesenharTela(entrada)
@@ -178,7 +179,8 @@ def jogar(palavra):
 # Independente do que for, a função retorna a entrada validada, a qual será guardada em uma variável na função jogar para que essa possa envia-la como parâmetro para setUpParaRedesenharTela
 def pedirAcaoDoJogador(palavra):
     entrada = validarEntrada(palavra)
-    if(entrada == 'DICA'): checarSeAindaHáDicasParaEntregar()
+    if(entrada == 'DICA'): 
+        checarSeAindaHáDicasParaEntregar()
     elif(entrada == palavra): definirVitoria()
     else: checarSeLetraJaFoiUsada(entrada)
     return entrada
@@ -189,8 +191,8 @@ def validarEntrada(palavra):
     novaEntrada = trocarEntradaParaJogo(entrada)
     while(not entrada.isalpha() or (len(entrada) != 1 and (entrada != 'DICA' and novaEntrada != palavra))):
         if(len(entrada) != 1 and (entrada != 'DICA' and novaEntrada != palavra)): 
-            print('Palavra errada, você perdeu uma vida.')
             tirarVida()
+            print('Palavra errada, você perdeu uma vida.')
         entrada = input('\nEntrada inválida, digite apenas uma letra ou peça por uma dica ou escreva a palavra correta: ').upper()
         novaEntrada = trocarEntradaParaJogo(entrada)
     return novaEntrada
@@ -222,6 +224,9 @@ def checarSeAindaHáDicasParaEntregar():
 
 def tirarVida():
     vidas.append(0)
+    os.system('cls' if os.name == 'nt' else 'clear')
+    errorsService.showResult(7 - len(vidas), len(vidas))
+    time.sleep(1)
 
 def checarSeLetraJaFoiUsada(entrada):
     adicionaLetraJaUsada = True
@@ -247,10 +252,7 @@ def definirSeEntradaExisteNaPalavra(entrada):
 
 def adicionarLetraNoArrayDeLetrasErradas(entrada):
     adicionaLetraErrada = True
-    if(len(letrasErradas) == 0): 
-        letrasErradas.append(entrada)
-        adicionaLetraErrada = False
-    else:
+    if(len(letrasErradas) != 0): 
         for i in range(len(letrasErradas)):
             if(entrada == letrasErradas[i]): 
                 adicionaLetraErrada = False
@@ -261,6 +263,7 @@ def adicionarLetraNoArrayDeLetrasErradas(entrada):
 
 def setUpParaRedesenharTela(entrada): 
     os.system('cls' if os.name == 'nt' else 'clear')
+    animationPacman.showPositonPacman(7 - len(vidas), len(vidas))
     for j in range(len(arrLetrasParaTela)):
         if(arrLetrasParaEntrada[j] == entrada):
             codigo[j] = arrLetrasParaTela[j]
@@ -303,17 +306,25 @@ def controlarTempo(agora):
     return duracao
 
 def definirVitoria():
+    os.system('cls' if os.name == 'nt' else 'clear')
     mensagem = f'{GREEN}Parabéns, você ganhou!{RESET}\U0001F601'
     resultados.append(1)
     print(mensagem, '\n')
+    animationPacman.showSadPacman()
+    animationPacman.showWin()
     desenharTelaDeFimDeJogo()
 
 def definirDerrota(timer):
+    os.system('cls' if os.name == 'nt' else 'clear')
     resultados.append(0)
     resposta = ''.join(arrLetrasParaTela)
-    if(timer > duracao): mensagem = f'{RED}Sinto muito, o tempo acabou.{RESET} A palavra era {resposta}.\U0001F61E'
-    else: mensagem = f'{RED}Sinto muito, as vidas acabaram.{RESET} A palavra era {resposta}.\U0001F61E'
+    if(timer > duracao):
+        mensagem = f'{RED}Sinto muito, o tempo acabou.{RESET} A palavra era {resposta}.\U0001F61E'
+    else: 
+        mensagem = f'{RED}Sinto muito, as vidas acabaram.{RESET} A palavra era {resposta}.\U0001F61E'
     print(mensagem, '\n')
+    time.sleep(1)
+    animationPacman.showGameOver()
     desenharTelaDeFimDeJogo()
 
 def desenharTelaDeFimDeJogo():
@@ -337,7 +348,7 @@ def decisaoDoUsuarioParaFimDeJogo():
     else:
         print("Obrigado pela participação. Até logo!")
         time.sleep(2)
-        (sys.exit())
+        sys.exit()
         
 def validarNovoJogo():
     novoJogo = input('Deseja jogar novamente? [Y/n]: ').upper()
