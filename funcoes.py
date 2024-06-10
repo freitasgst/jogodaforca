@@ -223,9 +223,9 @@ def checarSeAindaHáDicasParaEntregar():
             dicasSorteadas.append(mensagem)
 
 def tirarVida():
+    vidas.append(0)
     errorsService.showResult(7 - len(vidas), len(vidas))
     time.sleep(3)
-    vidas.append(0)
 
 def checarSeLetraJaFoiUsada(entrada):
     adicionaLetraJaUsada = True
@@ -264,7 +264,7 @@ def adicionarLetraNoArrayDeLetrasErradas(entrada):
         tirarVida() # FUNÇÃO PARA TIRAR VIDA
 
 def setUpParaRedesenharTela(entrada): 
-    os.system('cls' if os.name == 'nt' else 'clear')
+    # os.system('cls' if os.name == 'nt' else 'clear')
     for j in range(len(arrLetrasParaTela)):
         if(arrLetrasParaEntrada[j] == entrada):
             codigo[j] = arrLetrasParaTela[j]
