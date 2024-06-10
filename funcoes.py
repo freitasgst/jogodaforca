@@ -326,9 +326,11 @@ def desenharTelaDeFimDeJogo():
         mensagem = f'{i+1}ª rodada - {palavrasUsadas[i]} - {calcularTempoDaRodada(i)}'
         if(resultados[i] == 1): print(GREEN + mensagem + RESET)
         else: print(RED + mensagem + RESET)
-    if (len(vidas) < 6):
+    if (len(vidas) <= 6):
         print('Packman com fome...')
         animationPacman.showSadPacman()
+        animationPacman.showWin()
+    elif (len(vidas) == 7):
         animationPacman.showGameOver()
     decisaoDoUsuarioParaFimDeJogo()
 

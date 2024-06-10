@@ -3,6 +3,7 @@ import time
 YELLOW = "\033[1;33m"
 RED   = "\033[1;31m"  
 RESET  = "\033[0;0m"
+GREEN = "\033[0;32m"
 
 animation1Pacman  = YELLOW + r' __________  ' + RESET
 animation2Pacman  = YELLOW + r'/    X  X  \ ' + RESET
@@ -29,17 +30,20 @@ animation23Pacman = YELLOW + r'|          |' + RESET
 animation24Pacman = YELLOW + r'|   (_) ___|' + RESET
 animation25Pacman = YELLOW + r'|      /   |' + RESET
 animation26Pacman = YELLOW + r'|          |'
-
 animation1GameOver = RED + r' ____                        ___                ' + RESET
 animation2GameOver = RED + r'/ ___|  ___ _ __ ___   ___  / _ \__   _____ _ __' + RESET
 animation3GameOver = RED + r'| |  _ / _ |  _   _ \ / _ \| | | \ \ / / _ \ __|' + RESET
 animation4GameOver = RED + r'| |_| | (_|| | | | | |  __/| |_| |\ V /  __/ |  ' + RESET
 animation5GameOver = RED + r'\_____|\___|_| |_| |_|\___| \___/  \_/ \___|_|  ' + RESET
 
+animation1WIN = GREEN + r'__        __ _ __   _ ' + RESET
+animation2WIN = GREEN + r'\ \      / /| || \ | |' + RESET
+animation3WIN = GREEN + r' \ \ /\ / / | ||  \| |' + RESET
+animation4WIN = GREEN + r'  \ V  V /  | || |\  |' + RESET
+animation5WIN = GREEN + r'   \/\/\/   |_||_| \_|' + RESET
 animationFood1 = r' __'
 animationFood2 = r'|__|'
 
-  
 def showHungryPacman():
     hungryPackman = [[animation1Pacman], 
                      [animation2Pacman], 
@@ -137,6 +141,18 @@ def showGameOver():
     
     for i in range(len(gameOver)):
         print(gameOver[i][0])
+    time.sleep(1)
+    print('\n')
+
+def showWin(): 
+    win = [[animation1WIN],
+                [animation2WIN],
+                [animation3WIN],
+                [animation4WIN],
+                [animation5WIN]]
+    
+    for i in range(len(win)):
+        print(win[i][0])
     time.sleep(1)
     print('\n')
 
