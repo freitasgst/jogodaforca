@@ -101,7 +101,6 @@ def guardarDicas(palavras, index):
 # Chamamos a função setUpTelaInicialDoJogo, enviando-a a palavra tratada
 def guardarPalavraQueSeraUsadaEmArrDePalavrasUsadas(palavraBruta):
     palavra = palavraBruta[2:].strip()
-    
     palavrasUsadas.append(palavra)
     setUpTelaInicialDoJogo(palavra)
 
@@ -139,6 +138,7 @@ def definirPalavraParaEntrada():
 # Ao fim, chamamos a função jogo, enviando a nova palavra
 def desenharTelaInicialDoJogo(palavra):
     sortearDica()
+    errorsService.showResult(7, 0)
     mostrarRecadosNaTela()
     mostrarListaDeLetrasErradas()
     for l in range(len(codigo)):
@@ -166,7 +166,7 @@ def mostrarDicasNaTela():
 # Quando sair do while, chamamos a função de definirDerrota com o timer como parâmetro
 def jogar(palavra):
     timer = controlarTempo(time.time())
-    while(len(vidas) < 6 and timer < duracao):     # O len(vidas) deve ser menor que (QTD de vidas - 1) porque a tela é reescrita antes da validação
+    while(len(vidas) < 7 and timer < duracao):     
         entrada = pedirAcaoDoJogador(palavra)
         timer = controlarTempo(time.time())
         setUpParaRedesenharTela(entrada)
@@ -191,8 +191,8 @@ def validarEntrada(palavra):
     novaEntrada = trocarEntradaParaJogo(entrada)
     while(not entrada.isalpha() or (len(entrada) != 1 and (entrada != 'DICA' and novaEntrada != palavra))):
         if(len(entrada) != 1 and (entrada != 'DICA' and novaEntrada != palavra)): 
-            print('Palavra errada, você perdeu uma vida.')
             tirarVida()
+            print('Palavra errada, você perdeu uma vida.')
         entrada = input('\nEntrada inválida, digite apenas uma letra ou peça por uma dica ou escreva a palavra correta: ').upper()
         novaEntrada = trocarEntradaParaJogo(entrada)
     return novaEntrada
@@ -225,7 +225,7 @@ def checarSeAindaHáDicasParaEntregar():
 def tirarVida():
     vidas.append(0)
     errorsService.showResult(7 - len(vidas), len(vidas))
-    time.sleep(3)
+    time.sleep(1)
 
 def checarSeLetraJaFoiUsada(entrada):
     adicionaLetraJaUsada = True
@@ -251,10 +251,7 @@ def definirSeEntradaExisteNaPalavra(entrada):
 
 def adicionarLetraNoArrayDeLetrasErradas(entrada):
     adicionaLetraErrada = True
-    if(len(letrasErradas) == 0): 
-        letrasErradas.append(entrada)
-        adicionaLetraErrada = False
-    else:
+    if(len(letrasErradas) != 0): 
         for i in range(len(letrasErradas)):
             if(entrada == letrasErradas[i]): 
                 adicionaLetraErrada = False
@@ -264,7 +261,8 @@ def adicionarLetraNoArrayDeLetrasErradas(entrada):
         tirarVida() # FUNÇÃO PARA TIRAR VIDA
 
 def setUpParaRedesenharTela(entrada): 
-    # os.system('cls' if os.name == 'nt' else 'clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
+    animationPacman.showPositonPacman(7 - len(vidas), len(vidas))
     for j in range(len(arrLetrasParaTela)):
         if(arrLetrasParaEntrada[j] == entrada):
             codigo[j] = arrLetrasParaTela[j]
@@ -323,7 +321,6 @@ def definirDerrota(timer):
     desenharTelaDeFimDeJogo()
 
 def desenharTelaDeFimDeJogo():
-
     controleDeTempoFinal.append(time.time())
     for i in range(len(palavrasUsadas)):
         mensagem = f'{i+1}ª rodada - {palavrasUsadas[i]} - {calcularTempoDaRodada(i)}'
@@ -348,7 +345,7 @@ def decisaoDoUsuarioParaFimDeJogo():
     else:
         print("Obrigado pela participação. Até logo!")
         time.sleep(2)
-        (sys.exit())
+        sys.exit()
         
 def validarNovoJogo():
     novoJogo = input('Deseja jogar novamente? [Y/n]: ').upper()

@@ -1,4 +1,4 @@
-import funcoes, sys, errorsService
+import funcoes, sys
 
 # Desenho da tela inicial
 print("Nome: Cibele Gameleira - RA: 1680972411009 \nNome: Gabriela Freitas - RA: 1680972411001 \nNome: Letícia Nascimento - RA: 1680972411037")
@@ -16,7 +16,6 @@ print("- Se você digitar a palavra errada, perde uma vida;")
 print("- Se suas vidas ou o tempo do jogo acabar antes de você adivinhar a palavra, você perde a rodada;")
 print("- Se você acertar a palavra antes do tempo do jogo acabar, você ganha a rodada;")
 print("- Perdendo ou ganhando, você sempre pode jogar e se divertir novamente.\n")
-errorsService.showResult(7, 0)
 
 # Pede ação do jogador, para que a contagem de tempo comece apenas quando o jogador estiver preparado
 inicio = input('Pronto para começar? [Y/n]: ').upper()

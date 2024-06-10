@@ -42,18 +42,18 @@ animationFood2 = r'|__|'
   
 def showHungryPacman():
     hungryPackman = [[animation1Pacman], 
-          [animation2Pacman], 
-          [animation3Pacman], 
-          [animation4Pacman], 
-          [animation5Pacman], 
-          [animation6Pacman], 
-          [animation7Pacman], 
-          [animation8Pacman], 
-          [animation9Pacman]]
+                     [animation2Pacman], 
+                     [animation3Pacman], 
+                     [animation4Pacman], 
+                     [animation5Pacman], 
+                     [animation6Pacman], 
+                     [animation7Pacman], 
+                     [animation8Pacman], 
+                     [animation9Pacman]]
     
     for i in range(len(hungryPackman)):
         print(hungryPackman[i][0])
-    time.sleep(2)
+    time.sleep(1)
 
 def showEatingPacman():
     hungryPackman = [[animation1Pacman], 
@@ -68,37 +68,37 @@ def showEatingPacman():
       
     for i in range(len(hungryPackman)):
         print(hungryPackman[i][0])
-    time.sleep(2)
+    time.sleep(1)
 
 def showGoodPacman():
     goodPacman = [[animation1Pacman],
                   [animation14Pacman],
-                [animation3Pacman],
-                [animation10Pacman],
-                [animation11Pacman],
-                [animation12Pacman],
-                [animation13Pacman],
-                [animation8Pacman],
-                [animation9Pacman]]
+                  [animation3Pacman],
+                  [animation10Pacman],
+                  [animation11Pacman],
+                  [animation12Pacman],
+                  [animation13Pacman],
+                  [animation8Pacman],
+                  [animation9Pacman]]
     
     for i in range(len(goodPacman)):
         print(goodPacman[i][0])
-    time.sleep(2)
+    time.sleep(1)
 
 def showHappyPacman():
     goodPacman = [[animation1Pacman],
                   [animation2Pacman],
-                [animation3Pacman],
-                [animation18Pacman],
-                [animation19Pacman],
-                [animation20Pacman],
-                [animation21Pacman],
-                [animation8Pacman],
-                [animation9Pacman]]
+                  [animation3Pacman],
+                  [animation18Pacman],
+                  [animation19Pacman],
+                  [animation20Pacman],
+                  [animation21Pacman],
+                  [animation8Pacman],
+                  [animation9Pacman]]
     
     for i in range(len(goodPacman)):
         print(goodPacman[i][0])
-    time.sleep(2)
+    time.sleep(1)
 
 def showPositonPacman(quantityFood, quantityShit):
     food = ['\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354']
@@ -116,28 +116,28 @@ def showPositonPacman(quantityFood, quantityShit):
 def showSadPacman():
     goodPacman = [[animation1Pacman],
                   [animation2Pacman],
-                [animation3Pacman],
-                [animation23Pacman],
-                [animation24Pacman],
-                [animation25Pacman],
-                [animation26Pacman],
-                [animation8Pacman],
-                [animation9Pacman]]
+                  [animation3Pacman],
+                  [animation23Pacman],
+                  [animation24Pacman],
+                  [animation25Pacman],
+                  [animation26Pacman],
+                  [animation8Pacman],
+                  [animation9Pacman]]
     
     for i in range(len(goodPacman)):
         print(goodPacman[i][0])
-    time.sleep(2)
+    time.sleep(1)
 
 def showGameOver(): 
     gameOver = [[animation1GameOver],
-                  [animation2GameOver],
+                [animation2GameOver],
                 [animation3GameOver],
                 [animation4GameOver],
                 [animation5GameOver]]
     
     for i in range(len(gameOver)):
         print(gameOver[i][0])
-    time.sleep(2)
+    time.sleep(1)
     print('\n')
 
 def showError(quantityAvaliable, quantityErrors):  
