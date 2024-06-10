@@ -1,4 +1,4 @@
-import time
+import time, os
 
 YELLOW = "\033[1;33m"
 RED   = "\033[1;31m"  
@@ -58,6 +58,7 @@ def showHungryPacman():
     for i in range(len(hungryPackman)):
         print(hungryPackman[i][0])
     time.sleep(1)
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def showEatingPacman():
     hungryPackman = [[animation1Pacman], 
@@ -73,6 +74,7 @@ def showEatingPacman():
     for i in range(len(hungryPackman)):
         print(hungryPackman[i][0])
     time.sleep(1)
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def showGoodPacman():
     goodPacman = [[animation1Pacman],
@@ -88,6 +90,7 @@ def showGoodPacman():
     for i in range(len(goodPacman)):
         print(goodPacman[i][0])
     time.sleep(1)
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def showHappyPacman():
     goodPacman = [[animation1Pacman],
@@ -103,6 +106,7 @@ def showHappyPacman():
     for i in range(len(goodPacman)):
         print(goodPacman[i][0])
     time.sleep(1)
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def showPositonPacman(quantityFood, quantityShit):
     food = ['\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354']
@@ -131,6 +135,7 @@ def showSadPacman():
     for i in range(len(goodPacman)):
         print(goodPacman[i][0])
     time.sleep(1)
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def showGameOver(): 
     gameOver = [[animation1GameOver],

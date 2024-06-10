@@ -224,6 +224,7 @@ def checarSeAindaHáDicasParaEntregar():
 
 def tirarVida():
     vidas.append(0)
+    os.system('cls' if os.name == 'nt' else 'clear')
     errorsService.showResult(7 - len(vidas), len(vidas))
     time.sleep(1)
 
