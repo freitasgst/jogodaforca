@@ -135,7 +135,7 @@ def showSadPacman():
     for i in range(len(goodPacman)):
         print(goodPacman[i][0])
     time.sleep(1)
-    os.system('cls' if os.name == 'nt' else 'clear')
+    # os.system('cls' if os.name == 'nt' else 'clear')
 
 def showGameOver(): 
     gameOver = [[animation1GameOver],
@@ -151,10 +151,10 @@ def showGameOver():
 
 def showWin(): 
     win = [[animation1WIN],
-                [animation2WIN],
-                [animation3WIN],
-                [animation4WIN],
-                [animation5WIN]]
+           [animation2WIN],
+           [animation3WIN],
+           [animation4WIN],
+           [animation5WIN]]
     
     for i in range(len(win)):
         print(win[i][0])

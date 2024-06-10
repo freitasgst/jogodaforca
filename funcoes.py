@@ -306,12 +306,16 @@ def controlarTempo(agora):
     return duracao
 
 def definirVitoria():
+    os.system('cls' if os.name == 'nt' else 'clear')
     mensagem = f'{GREEN}Parabéns, você ganhou!{RESET}\U0001F601'
     resultados.append(1)
     print(mensagem, '\n')
+    animationPacman.showSadPacman()
+    animationPacman.showWin()
     desenharTelaDeFimDeJogo()
 
 def definirDerrota(timer):
+    os.system('cls' if os.name == 'nt' else 'clear')
     resultados.append(0)
     resposta = ''.join(arrLetrasParaTela)
     if(timer > duracao):
@@ -319,6 +323,8 @@ def definirDerrota(timer):
     else: 
         mensagem = f'{RED}Sinto muito, as vidas acabaram.{RESET} A palavra era {resposta}.\U0001F61E'
     print(mensagem, '\n')
+    time.sleep(1)
+    animationPacman.showGameOver()
     desenharTelaDeFimDeJogo()
 
 def desenharTelaDeFimDeJogo():
@@ -327,12 +333,6 @@ def desenharTelaDeFimDeJogo():
         mensagem = f'{i+1}ª rodada - {palavrasUsadas[i]} - {calcularTempoDaRodada(i)}'
         if(resultados[i] == 1): print(GREEN + mensagem + RESET)
         else: print(RED + mensagem + RESET)
-    if (len(vidas) <= 6):
-        print('Packman com fome...')
-        animationPacman.showSadPacman()
-        animationPacman.showWin()
-    elif (len(vidas) == 7):
-        animationPacman.showGameOver()
     decisaoDoUsuarioParaFimDeJogo()
 
 def calcularTempoDaRodada(i):
