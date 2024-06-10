@@ -101,6 +101,7 @@ def guardarDicas(palavras, index):
 # Chamamos a função setUpTelaInicialDoJogo, enviando-a a palavra tratada
 def guardarPalavraQueSeraUsadaEmArrDePalavrasUsadas(palavraBruta):
     palavra = palavraBruta[2:].strip()
+    
     palavrasUsadas.append(palavra)
     setUpTelaInicialDoJogo(palavra)
 
@@ -222,8 +223,8 @@ def checarSeAindaHáDicasParaEntregar():
             dicasSorteadas.append(mensagem)
 
 def tirarVida():
-    print('TIRANDO VIDA')
-    print(len(vidas), 7 - len(vidas))
+    errorsService.showResult(7 - len(vidas), len(vidas))
+    time.sleep(3)
     vidas.append(0)
 
 def checarSeLetraJaFoiUsada(entrada):
@@ -328,9 +329,10 @@ def desenharTelaDeFimDeJogo():
         mensagem = f'{i+1}ª rodada - {palavrasUsadas[i]} - {calcularTempoDaRodada(i)}'
         if(resultados[i] == 1): print(GREEN + mensagem + RESET)
         else: print(RED + mensagem + RESET)
-    print('Packman com fome...')
-    animationPacman.showSadPacman()
-    animationPacman.showGameOver()
+    if (len(vidas) < 6):
+        print('Packman com fome...')
+        animationPacman.showSadPacman()
+        animationPacman.showGameOver()
     decisaoDoUsuarioParaFimDeJogo()
 
 def calcularTempoDaRodada(i):
