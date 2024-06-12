@@ -119,7 +119,7 @@ def showPositonPacman(quantityFood, quantityShit):
     for _ in range(quantityFood):
         shit.pop(0)
     print('=====================================================================================================')
-    print("      ".join(shit),  pacman, "\n" ,"       ".join(food), '\n',f'Quantidade de tentativas restantes: {quantityFood}\n', f'Quantidade de erros: {quantityShit} \n')
+    print("      ".join(food),  pacman, "\n" ,"       ".join(shit), '\n',f'Quantidade de tentativas restantes: {quantityFood}\n', f'Quantidade de erros: {quantityShit} \n')
     print('=====================================================================================================')
  
 def showSadPacman():
@@ -168,8 +168,8 @@ def showError(quantityAvaliable, quantityErrors):
         showGoodPacman()
         showHappyPacman()
         showPositonPacman(quantityAvaliable, quantityErrors)
-    #else:
-     #   showGameOver()
+    else:
+        showGameOver()
 
 def showRight(quantityAvaliable, quantityErrors):  
     showSadPacman()
