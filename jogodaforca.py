@@ -1,6 +1,11 @@
 import funcoes, sys                         # importa nosso arquivo de funções e o módulo do python sys
 
+CYAN  = "\033[1;36m"
+RESET = "\033[0;0m"
+
 # Desenho da tela inicial
+print(f"\n{CYAN}Jogo da Forca{RESET} \n")
+
 print("Nome: Cibele Gameleira - RA: 1680972411009 \nNome: Gabriela Freitas - RA: 1680972411001 \nNome: Letícia Nascimento - RA: 1680972411037\n")
 
 print("Jogo[X] \nDicas[X] \nControle de tempo[X] \n")

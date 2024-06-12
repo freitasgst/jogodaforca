@@ -177,33 +177,36 @@ def mostrarDicasNaTela():
 # 1. Pedir uma ação para o usuário 2. Gravar mais uma vez o tempo da rodada para a duração 3. Chamar a função de setUpParaRedesenharTela
 # Quando sair do while, chamamos a função de definirDerrota com o timer como parâmetro
 def jogar(palavra):
-    timer = controlarTempo(time.time())
+    timer = controlarTempo(time.time())                 # temos que criar a variável antes do while poder usá-la como condição
     while(len(vidas) < 7 and timer < duracao):     
         entrada = pedirAcaoDoJogador(palavra)
         timer = controlarTempo(time.time())
         setUpParaRedesenharTela(entrada)
     definirDerrota(timer)
 
-# PARA pedirAcaoDoJogador, validamos uma entrada (input) chamando a função validarEntrada, enviando a palavra sorteada sem acentos como parâmetro
-# Se a entrada validada for um a str 'DICA', chamamos a função checarSeAindaHáDicasParaEntregar
-# Se for a entrada, depois de transformada em entrada sem acentos, for igual a palavra, depois de transformada em palavra sem acento, chamamos definirVitoria() 
+# PARA pedirAcaoDoJogador, validamos a entrada (input) chamando a função validarEntrada, enviando a palavra sorteada sem acentos como parâmetro
+# Se a entrada validada for a str 'DICA', chamamos a função checarSeAindaHáDicasParaEntregar
+# Se a entrada, depois de transformada em entrada sem acentos, for igual a palavra, depois de transformada em palavra sem acento, chamamos definirVitoria() 
 # Se for outra opção, chamamos a função checarSeLetraJaFoiUsada
-# Independente do que for, a função retorna a entrada validada, a qual será guardada em uma variável na função jogar para que essa possa envia-la como parâmetro para setUpParaRedesenharTela
+# Independente do que for, a função retorna a entrada validada, a qual será guardada em uma variável em jogar(), para que possa enviá-la como parâmetro para a nova tela (redesenhada pós ação do usuário)
 def pedirAcaoDoJogador(palavra):
     entrada = validarEntrada(palavra)
     if(entrada == 'DICA'): 
-        if dicas[0] != 'Não existem dicas para essa palavra': 
-            checarSeAindaHáDicasParaEntregar()
+        checaSeExistiamDicasParaAPalavraNoInicioDoJogo = True
+        if(len(dicas) != 0 and dicas[0] == 'Não existem dicas para essa palavra'): checaSeExistiamDicasParaAPalavraNoInicioDoJogo = False
+        if(checaSeExistiamDicasParaAPalavraNoInicioDoJogo): checarSeAindaHáDicasParaEntregar()
     elif(entrada == palavra): definirVitoria()
     else: checarSeLetraJaFoiUsada(entrada)
     return entrada
 
-# PARA validarEntrada, checamos se a entrada é um caractere, e não um digito, e, se for caractere,
+# PARA validarEntrada, primeiro nós trocamos os caracteres especiais caso existam. 
+# Uma vez que ela está como ser usada em jogo, checamos se a entrada é um caractere, e não um digito; e, se for caractere, checamos se é uma letra, um pedido de dica ou um chute
+# Esta função retorna a "nova entrada" (letra sem acento ou ç) para a função de pedir ação do jogador, que a usará para ver se ela está na palavra, se há dicas ou se o jogador acertou em seu chute
 def validarEntrada(palavra):
     entrada = input('\nDigite uma letra ou peça por uma dica: ').upper()
     novaEntrada = trocarEntradaParaJogo(entrada)
     while(not entrada.isalpha() or (len(entrada) != 1 and (entrada != 'DICA' and novaEntrada != palavra))):
-        if(len(entrada) == len(palavra) and (entrada != 'DICA' and novaEntrada != palavra)): 
+        if(len(entrada) == len(palavra) and (entrada != 'DICA' and novaEntrada != palavra)):                        # optamos por só tirar a vida dele caso ele digite algo do mesmo tamanho da palavra. Se não for esse o caso, não é um chute válido
             tirarVida()
             redesenharTela()
             print(CYAN + '\nPalavra errada, você perdeu uma vida.\U0001F61F' + RESET)
@@ -211,8 +214,11 @@ def validarEntrada(palavra):
         novaEntrada = trocarEntradaParaJogo(entrada)
     return novaEntrada
 
+# PARA trocarEntradaParaJogo, percorremos pela entrada (str). A cada iteração desse for, guardamos a letra da entrada em um array temporário e percorremos pela matriz procurando se alguma das letras da entrada consta nele
+# Se sim, mandamos para o array temporário a letra sem o acento ou cedilha. Se não, continua como a letra original da entrada, já salva lá
+# Essa função retorna para validarEntrada uma str da palavra nova sem acentos ou cedilha, ao dar juntando com '' os elementos do array temporário
 def trocarEntradaParaJogo(entrada):
-    arrTemporarioParaNovaEntrada = ['' for aux in range(len(entrada))]
+    arrTemporarioParaNovaEntrada = ['' for aux in range(len(entrada))]              # 'entrada' nem sempre é uma letra, mas pode ser um chute
     for i in range(len(entrada)):
         arrTemporarioParaNovaEntrada[i] = entrada[i]
         for linha in range(len(matrizDeTroca)):
