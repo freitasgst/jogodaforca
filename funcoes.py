@@ -11,7 +11,7 @@ REVERSE = "\033[;7m"
 
 palavrasUsadas = []                        # onde vamos guardar as palavras usadas para que o jogador possa sempre ter palavras quando jogar novamente
 dicas = []                                 # onde vamos guardar as dicas da rodada
-dicasSorteadas = []
+dicasSorteadas = []                        # onde vamos guardar as dicas que ficam na tela
 matrizDeTroca = [
     ['A', 'Á', 'À', 'Â', 'Ã'], 
     ['E', 'É', 'Ê'], 
@@ -51,7 +51,7 @@ def fazerSetUpDoJogo():
 # PARA lerArquivoComPalavras, devemos abrir o arquivo .txt com as palavras e dicas e guardar essa informação em uma lista. 
 # Chamamos a função de checarSeAindaHaPalavras, enviando a essa lista como parâmetro
 def lerArquivoComPalavras():
-    arq = open('jogo.txt', encoding='utf-8')
+    arq = open('jogo.txt', 'r', encoding='utf-8')
     palavras = arq.readlines()
     arq.close()
     checarSeAindaHaPalavras(palavras)
@@ -66,7 +66,7 @@ def checarSeAindaHaPalavras(palavras):
         if 'P:' in palavraDisponibilizada:
             contador += 1
     if(contador == len(palavrasUsadas)):
-        print(BLUE + 'Sinto muito. Acabaram-se as palavras.\U0001F61F' + RESET)
+        print(CYAN + 'Sinto muito. Acabaram-se as palavras.\U0001F61F' + RESET)
         time.sleep(3)
         sys.exit()
     escolherPalavra(palavras)
@@ -185,17 +185,16 @@ def pedirAcaoDoJogador(palavra):
     else: checarSeLetraJaFoiUsada(entrada)
     return entrada
 
-# PARA validarEntrada, o usuário pede input do
+# PARA validarEntrada, checamos se a entrada é um caractere, e não um digito, e, se for caractere,
 def validarEntrada(palavra):
     entrada = input('\nDigite uma letra ou peça por uma dica: ').upper()
     novaEntrada = trocarEntradaParaJogo(entrada)
     while(not entrada.isalpha() or (len(entrada) != 1 and (entrada != 'DICA' and novaEntrada != palavra))):
-        print('\n')
         if(len(entrada) == len(palavra) and (entrada != 'DICA' and novaEntrada != palavra)): 
             tirarVida()
             redesenharTela()
-            print('Palavra errada, você perdeu uma vida.')
-        entrada = input('Entrada inválida, digite apenas uma letra ou peça por uma dica ou escreva a palavra correta: ').upper()
+            print(CYAN + '\nPalavra errada, você perdeu uma vida.\U0001F61F' + RESET)
+        entrada = input('\nEntrada inválida, digite apenas uma letra ou peça por uma dica ou escreva a palavra correta: ').upper()
         novaEntrada = trocarEntradaParaJogo(entrada)
     return novaEntrada
 
@@ -210,7 +209,7 @@ def trocarEntradaParaJogo(entrada):
     return ''.join(arrTemporarioParaNovaEntrada)
 
 def checarSeAindaHáDicasParaEntregar():
-    mensagem = 'Você já usou todas as suas dicas'
+    mensagem = CYAN + 'Você já usou todas as suas dicas' + RESET
     if (len(dicas) != 0): 
         tirarVida() # FUNÇÃO PARA TIRAR VIDA
         sortearDica() 
@@ -239,7 +238,7 @@ def checarSeLetraJaFoiUsada(entrada):
         for i in range(len(letrasUsadas)):
             if(letrasUsadas[i] == entrada): 
                 adicionaLetraJaUsada = False
-                if(len(recados) != 0): recados[0] = (f'A letra {entrada} já foi usada')
+                if(len(recados) != 0): recados[0] = (CYAN + f'A letra {entrada} já foi usada' + RESET)
                 break
     if adicionaLetraJaUsada: letrasUsadas.append(entrada)
     definirSeEntradaExisteNaPalavra(entrada)
@@ -312,7 +311,6 @@ def definirVitoria():
     mensagem = f'{GREEN}Parabéns, você ganhou!{RESET}\U0001F601'
     resultados.append(1)
     print(mensagem, '\n')
-    animationPacman.showSadPacman()
     animationPacman.showWin()
     desenharTelaDeFimDeJogo()
 
@@ -321,11 +319,11 @@ def definirDerrota(timer):
     resultados.append(0)
     resposta = ''.join(arrLetrasParaTela)
     if(timer > duracao):
-        mensagem = f'{RED}Sinto muito, o tempo acabou.{RESET} A palavra era {resposta}.\U0001F61E'
+        mensagem = f'{RED}Sinto muito, o tempo acabou.{RESET} A palavra era {resposta.upper()}.\U0001F61E'
     else: 
-        mensagem = f'{RED}Sinto muito, as vidas acabaram.{RESET} A palavra era {resposta}.\U0001F61E'
+        mensagem = f'{RED}Sinto muito, as vidas acabaram.{RESET} A palavra era {resposta.upper()}.\U0001F61E'
     print(mensagem, '\n')
-    time.sleep(1)
+    time.sleep(1) 
     animationPacman.showGameOver()
     desenharTelaDeFimDeJogo()
 

@@ -1,5 +1,7 @@
 import time, os
 
+lifes = 7
+
 YELLOW = "\033[1;33m"
 RED   = "\033[1;31m"  
 RESET  = "\033[0;0m"
@@ -10,25 +12,25 @@ animation2Pacman  = YELLOW + r'/    X  X  \ ' + RESET
 animation3Pacman  = YELLOW + r'|          | ' + RESET
 animation4Pacman  = YELLOW + r'|     /\/\/  ' + RESET
 animation5Pacman  = YELLOW + r'|    /      __ ' + RESET
-animation6Pacman  = YELLOW + r'|    \     |__|' + RESET
+animation6Pacman  = YELLOW + r'|    \     |__|' + RESET                 # hungry
 animation7Pacman  = YELLOW + r'|     \/\/\  ' + RESET
 animation8Pacman  = YELLOW + r'|          | ' + RESET
 animation9Pacman  = YELLOW + r'\__________/ ' + RESET
 animation10Pacman = YELLOW + r'|  //  ___ |' + RESET
-animation11Pacman = YELLOW + r'|    //___\|' + RESET
+animation11Pacman = YELLOW + r'|    //___\|' + RESET                    # eating
 animation12Pacman = YELLOW + r'|    \\___/|' + RESET
 animation13Pacman = YELLOW + r'|          |' + RESET
 animation14Pacman = YELLOW + r'/    ^  ^  \ ' + RESET
 animation16Pacman = YELLOW + r'|    /  __   ' + RESET
-animation17Pacman = YELLOW + r'|    \ |__|  ' + RESET
+animation17Pacman = YELLOW + r'|    \ |__|  ' + RESET                   # happy
 animation18Pacman = YELLOW + r'|          |' + RESET
-animation19Pacman = YELLOW + r'|     \____|' + RESET
+animation19Pacman = YELLOW + r'|     \____|' + RESET                    # good
 animation20Pacman = YELLOW + r'|          |' + RESET
 animation21Pacman = YELLOW + r'|          |' + RESET
-animation22Pacman = YELLOW + r'|      ____|' + RESET
+animation22Pacman = YELLOW + r'|      ____|' + RESET                    # position
 animation23Pacman = YELLOW + r'|          |' + RESET
-animation24Pacman = YELLOW + r'|   (_) ___|' + RESET
-animation25Pacman = YELLOW + r'|      /   |' + RESET
+animation24Pacman = YELLOW + r'|       ___|' + RESET
+animation25Pacman = YELLOW + r'|      /   |' + RESET                    # sad
 animation26Pacman = YELLOW + r'|          |'
 animation1GameOver = RED + r' ____                        ___                ' + RESET
 animation2GameOver = RED + r'/ ___|  ___ _ __ ___   ___  / _ \__   _____ _ __' + RESET
@@ -45,7 +47,7 @@ animationFood1 = r' __'
 animationFood2 = r'|__|'
 
 def showHungryPacman():
-    hungryPackman = [[animation1Pacman], 
+    hungryPacman = [[animation1Pacman], 
                      [animation2Pacman], 
                      [animation3Pacman], 
                      [animation4Pacman], 
@@ -55,13 +57,13 @@ def showHungryPacman():
                      [animation8Pacman], 
                      [animation9Pacman]]
     
-    for i in range(len(hungryPackman)):
-        print(hungryPackman[i][0])
+    for i in range(len(hungryPacman)):
+        print(hungryPacman[i][0])
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def showEatingPacman():
-    hungryPackman = [[animation1Pacman], 
+    hungryPacman = [[animation1Pacman], 
           [animation2Pacman], 
           [animation3Pacman], 
           [animation4Pacman], 
@@ -71,8 +73,8 @@ def showEatingPacman():
           [animation8Pacman], 
           [animation9Pacman]]
       
-    for i in range(len(hungryPackman)):
-        print(hungryPackman[i][0])
+    for i in range(len(hungryPacman)):
+        print(hungryPacman[i][0])
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -109,16 +111,15 @@ def showHappyPacman():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def showPositonPacman(quantityFood, quantityShit):
-    food = ['\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354', '\U0001F354']
-    shit = ['\U0001F4A9', '\U0001F4A9', '\U0001F4A9', '\U0001F4A9', '\U0001F4A9', '\U0001F4A9', '\U0001F4A9']
-    packman = "\n" + animation1Pacman + "\n" + animation2Pacman + "\n" + animation3Pacman + "\n" + animation18Pacman + "\n" + animation22Pacman + "\n" +animation20Pacman + "\n" + animation21Pacman + "\n" + animation8Pacman + "\n" + animation9Pacman + "\n"
-
+    food = ['\U0001F354' for aux in range(lifes)]
+    shit = ['\U0001F4A9' for aux in range(lifes)]
+    pacman = "\n" + animation1Pacman + "\n" + animation2Pacman + "\n" + animation3Pacman + "\n" + animation18Pacman + "\n" + animation22Pacman + "\n" +animation20Pacman + "\n" + animation21Pacman + "\n" + animation8Pacman + "\n" + animation9Pacman + "\n"
     for _ in range(quantityShit):
         food.pop(0)
     for _ in range(quantityFood):
         shit.pop(0)
     print('=====================================================================================================')
-    print("      ".join(shit),  packman, "\n" ,"       ".join(food), '\n',f'Quantidade de tentativas restantes: {quantityFood}\n', f'Quantidade de erros: {quantityShit} \n')
+    print("      ".join(shit),  pacman, "\n" ,"       ".join(food), '\n',f'Quantidade de tentativas restantes: {quantityFood}\n', f'Quantidade de erros: {quantityShit} \n')
     print('=====================================================================================================')
  
 def showSadPacman():
@@ -135,7 +136,6 @@ def showSadPacman():
     for i in range(len(goodPacman)):
         print(goodPacman[i][0])
     time.sleep(1)
-    # os.system('cls' if os.name == 'nt' else 'clear')
 
 def showGameOver(): 
     gameOver = [[animation1GameOver],
@@ -168,8 +168,8 @@ def showError(quantityAvaliable, quantityErrors):
         showGoodPacman()
         showHappyPacman()
         showPositonPacman(quantityAvaliable, quantityErrors)
-    else:
-        showGameOver()
+    #else:
+     #   showGameOver()
 
 def showRight(quantityAvaliable, quantityErrors):  
     showSadPacman()
