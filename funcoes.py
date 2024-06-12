@@ -190,10 +190,12 @@ def validarEntrada(palavra):
     entrada = input('\nDigite uma letra ou peça por uma dica: ').upper()
     novaEntrada = trocarEntradaParaJogo(entrada)
     while(not entrada.isalpha() or (len(entrada) != 1 and (entrada != 'DICA' and novaEntrada != palavra))):
-        if(len(entrada) != 1 and (entrada != 'DICA' and novaEntrada != palavra)): 
+        print('\n')
+        if(len(entrada) == len(palavra) and (entrada != 'DICA' and novaEntrada != palavra)): 
             tirarVida()
+            redesenharTela()
             print('Palavra errada, você perdeu uma vida.')
-        entrada = input('\nEntrada inválida, digite apenas uma letra ou peça por uma dica ou escreva a palavra correta: ').upper()
+        entrada = input('Entrada inválida, digite apenas uma letra ou peça por uma dica ou escreva a palavra correta: ').upper()
         novaEntrada = trocarEntradaParaJogo(entrada)
     return novaEntrada
 
