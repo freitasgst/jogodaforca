@@ -1,4 +1,5 @@
 import time, os
+import audioService
 
 YELLOW = "\033[1;33m"
 RED   = "\033[1;31m"  
@@ -62,15 +63,15 @@ def showHungryPacman():
 
 def showEatingPacman():
     hungryPackman = [[animation1Pacman], 
-          [animation2Pacman], 
-          [animation3Pacman], 
-          [animation4Pacman], 
-          [animation16Pacman], 
-          [animation17Pacman], 
-          [animation7Pacman], 
-          [animation8Pacman], 
-          [animation9Pacman]]
-      
+                     [animation2Pacman], 
+                     [animation3Pacman], 
+                     [animation4Pacman], 
+                     [animation16Pacman], 
+                     [animation17Pacman], 
+                     [animation7Pacman], 
+                     [animation8Pacman], 
+                     [animation9Pacman]]
+    
     for i in range(len(hungryPackman)):
         print(hungryPackman[i][0])
     time.sleep(1)
@@ -89,6 +90,7 @@ def showGoodPacman():
     
     for i in range(len(goodPacman)):
         print(goodPacman[i][0])
+    audioService.tocarSFXComendo()
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -118,7 +120,7 @@ def showPositonPacman(quantityFood, quantityShit):
     for _ in range(quantityFood):
         shit.pop(0)
     print('=====================================================================================================')
-    print("      ".join(shit),  packman, "\n" ,"       ".join(food), '\n',f'Quantidade de tentativas restantes: {quantityFood}\n', f'Quantidade de erros: {quantityShit} \n')
+    print("      ".join(food),  packman, "\n" ,"       ".join(shit), '\n',f'Quantidade de tentativas restantes: {quantityFood}\n', f'Quantidade de erros: {quantityShit} \n')
     print('=====================================================================================================')
  
 def showSadPacman():
@@ -135,7 +137,6 @@ def showSadPacman():
     for i in range(len(goodPacman)):
         print(goodPacman[i][0])
     time.sleep(1)
-    # os.system('cls' if os.name == 'nt' else 'clear')
 
 def showGameOver(): 
     gameOver = [[animation1GameOver],
