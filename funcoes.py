@@ -1,13 +1,9 @@
 import random, time, sys, os, errorsService, animationPacman
 
-# Variáveis GLOBAIS
 RED   = "\033[1;31m"  
-BLUE  = "\033[1;34m"
 CYAN  = "\033[1;36m"
 GREEN = "\033[0;32m"
 RESET = "\033[0;0m"
-BOLD    = "\033[;1m"
-REVERSE = "\033[;7m"
 
 palavrasUsadas = []                        # onde vamos guardar as palavras usadas para que o jogador possa sempre ter palavras quando jogar novamente
 dicas = []                                 # onde vamos guardar as dicas da rodada
@@ -21,7 +17,7 @@ matrizDeTroca = [
     ['C', 'Ç']
 ]
 arrLetrasParaTela = []                     # array para mostrar a palavra gramaticamente correta na tela
-arrLetrasParaEntrada = []                  # array para comparar entrada com palavra ignorando acentos e ç
+arrLetrasParaEntrada = []                  # array para comparar entrada com palavra ignorando acentos e ç, ou seja, a palavra para a mecânica de jogo
 codigo = []                                # array para mostrar a palavra como _ _ _ _ _ _ _
 letrasUsadas = []                          # onde vamos guardar todas as letras já usadas na rodada
 letrasErradas = []                         # onde vamos guardar só as letras usadas na rodada que não estão na palavra
@@ -79,6 +75,21 @@ def escolherPalavra(palavras):
     while 'D:' in palavra or palavra[2:].strip() in palavrasUsadas:                         
         palavra = random.choice(palavras)
     acharDicas(palavras, palavra)
+    '''
+    palavra = random.choice(palavras)
+    checarSeJaFoiUsado = False
+    for dado in palavrasUsadas:
+        if (dado == palavra): 
+            checarSeJaFoiUsado = True
+            break
+    while(palavra[0:2] == 'D:' or checarSeJaFoiUsado):
+        palavra = random.choice(palavras)
+        checarSeJaFoiUsado = False
+        for dado in palavrasUsadas:
+            if (dado == palavra): 
+                checarSeJaFoiUsado = True
+                break
+    '''
 
 # PARA acharDicas, passamos pela lista até achar a palavra. 
 # Chamamos o guardarDicas com a lista de palavras e o index da palavra encontrada
@@ -95,6 +106,7 @@ def guardarDicas(palavras, index):
         dicas.append(palavras[k][2:].strip())
         k += 1
         if(k == len(palavras)): break                                   # Necessário para k não ficar out of range caso a palavra sorteada tenha sido a última da lista
+    if len(dicas) == 0: dicas.append('Não existem dicas para essa palavra')
     guardarPalavraQueSeraUsadaEmArrDePalavrasUsadas(palavras[index])
 
 # PARA guardarPalavraQueSeraUsadaEmArrDePalavrasUsadas, tiramos 'P:' e a '\n'
@@ -104,10 +116,9 @@ def guardarPalavraQueSeraUsadaEmArrDePalavrasUsadas(palavraBruta):
     palavrasUsadas.append(palavra)
     setUpTelaInicialDoJogo(palavra)
 
-# PARA setUpTelaInicialDoJogo, começamos "dando início ao cronômetro", salvando o tempo no array de tempos iniciais
-# Salvamos as letras originais da palavra em um array e o mesmo número de letras de '_ ' em outro
-# Com cada letra, chamamos a função de trocarLetrasParaCriarArrLetrasParaEntrada
-# No final, chamamos definirPalavraParaEntrada
+# PARA setUpTelaInicialDoJogo, iniciamos o cronômetro ao salvar o tempo no array de tempos iniciais
+# Salvamos as letras originais da palavra em um array e o mesmo número de letras de '_ ' em outro, chamado código
+# Com cada letra, chamamos a função de trocarLetrasParaCriarArrLetrasParaEntrada e no final, chamamos definirPalavraParaEntrada
 def setUpTelaInicialDoJogo(palavra):
     controleDeTempoInicial.append(time.time())
     for i in range(len(palavra)):
@@ -116,9 +127,8 @@ def setUpTelaInicialDoJogo(palavra):
         codigo.append('_ ')
     definirPalavraParaEntrada()
 
-# PARA trocarLetrasParaCriarArrLetrasParaEntrada passamos pela matriz e, 
-# se alguma letra da palavra sorteada for acentuada, trocamos pela letra na posição 0 daquela linha
-# Salvamos as letras "tratadas" em um array
+# PARA trocarLetrasParaCriarArrLetrasParaEntrada passamos pela matriz de troca e, se alguma letra da palavra sorteada for acentuada, trocamos pela letra na posição 0 daquela linha
+# Salvamos as letras "tratadas" em um array. 
 def trocarLetrasParaCriarArrLetrasParaEntrada(letra):
     for linha in range(len(matrizDeTroca)):
         for coluna in range(len(matrizDeTroca[linha])):
@@ -132,10 +142,9 @@ def definirPalavraParaEntrada():
     novaPalavra = ''.join(arrLetrasParaEntrada)
     desenharTelaInicialDoJogo(novaPalavra)
 
-# PARA desenharTelaInicialDoJogo, precisamos chamar função de sortearDica para sortear a dica inicial, 
-# Mostrar recados existentes, listas de letras erradas, o array codigo, com _ _ _s, e as dicas já existentes (que deve ser apenas uma)
-# Por ser a tela inicial, os recados e letras erradas devem estar vazios, mas o colocamos para manter sempre o mesmo espaço entre as linhas
-# Ao fim, chamamos a função jogo, enviando a nova palavra
+# PARA desenharTelaInicialDoJogo, precisamos sortear a dica inicial, e mostrar: o pacman com 7 vidas, recados existentes, lista de letras erradas, os _ _ _ _, e a dica inicial sorteada
+# Por ser a tela inicial, os recados e as letras erradas devem estar vazios, mas o colocamos para manter sempre o mesmo espaço entre as linhas
+# Ao fim, chamamos a função jogo, enviando a "palavra tratada"
 def desenharTelaInicialDoJogo(palavra):
     sortearDica()
     errorsService.showResult(7, 0)
@@ -150,9 +159,12 @@ def desenharTelaInicialDoJogo(palavra):
 # PARA sortearDica, sorteamos um número aleatório de 0 a tamanho do array - 1. Esse vai ser o índice da dica na lista. 
 # Usamos o .pop() para alterar o array de dicas, tirando a dica já sorteada, e guardando-a no array de dicas sorteadas
 def sortearDica():
-    indexDasDicas = len(dicas) - 1
-    indexSorteado = random.randint(0, indexDasDicas)
-    dicasSorteadas.append(f'Dica: {dicas.pop(indexSorteado)}')
+    if dicas[0] == 'Não existem dicas para essa palavra': 
+        dicasSorteadas.append(CYAN + 'Não existem dicas para essa palavra' + RESET)
+    else:
+        indexDasDicas = len(dicas) - 1
+        indexSorteado = random.randint(0, indexDasDicas)
+        dicasSorteadas.append(f'Dica: {dicas.pop(indexSorteado)}')
 
 # PARA mostrarDicasNaTela, percorremos o array com um for dando print nas dicas, apenas se o array não estiver vazio
 def mostrarDicasNaTela():
@@ -180,7 +192,8 @@ def jogar(palavra):
 def pedirAcaoDoJogador(palavra):
     entrada = validarEntrada(palavra)
     if(entrada == 'DICA'): 
-        checarSeAindaHáDicasParaEntregar()
+        if dicas[0] != 'Não existem dicas para essa palavra': 
+            checarSeAindaHáDicasParaEntregar()
     elif(entrada == palavra): definirVitoria()
     else: checarSeLetraJaFoiUsada(entrada)
     return entrada
