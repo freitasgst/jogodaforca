@@ -7,6 +7,7 @@ RED   = "\033[1;31m"
 RESET  = "\033[0;0m"
 GREEN = "\033[0;32m"
 
+# Variáveis com os desenhos dos frames do pacmas
 animation1Pacman  = YELLOW + r' __________  ' + RESET
 animation2Pacman  = YELLOW + r'/    X  X  \ ' + RESET
 animation3Pacman  = YELLOW + r'|          | ' + RESET
@@ -17,14 +18,14 @@ animation7Pacman  = YELLOW + r'|     \/\/\  ' + RESET
 animation8Pacman  = YELLOW + r'|          | ' + RESET
 animation9Pacman  = YELLOW + r'\__________/ ' + RESET
 animation10Pacman = YELLOW + r'|  //  ___ |' + RESET
-animation11Pacman = YELLOW + r'|    //___\|' + RESET                    # eating
+animation11Pacman = YELLOW + r'|    //___\|' + RESET                    # good
 animation12Pacman = YELLOW + r'|    \\___/|' + RESET
 animation13Pacman = YELLOW + r'|          |' + RESET
 animation14Pacman = YELLOW + r'/    ^  ^  \ ' + RESET
 animation16Pacman = YELLOW + r'|    /  __   ' + RESET
-animation17Pacman = YELLOW + r'|    \ |__|  ' + RESET                   # happy
+animation17Pacman = YELLOW + r'|    \ |__|  ' + RESET                   # eating
 animation18Pacman = YELLOW + r'|          |' + RESET
-animation19Pacman = YELLOW + r'|     \____|' + RESET                    # good
+animation19Pacman = YELLOW + r'|     \____|' + RESET                    # happy
 animation20Pacman = YELLOW + r'|          |' + RESET
 animation21Pacman = YELLOW + r'|          |' + RESET
 animation22Pacman = YELLOW + r'|      ____|' + RESET                    # position
@@ -46,6 +47,8 @@ animation5WIN = GREEN + r'   \/\/\/   |_||_| \_|' + RESET
 animationFood1 = r' __'
 animationFood2 = r'|__|'
 
+# PARA mostrarPacmanComFome, criamos uma matriz com os desenhos que compõem a imagem do pacman abrindo a boca para um hambúrguer. 
+# Damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, limpamos o terminal, para que a animação ficasse sobreposta
 def showHungryPacman():
     hungryPacman = [[animation1Pacman], 
                      [animation2Pacman], 
@@ -62,6 +65,8 @@ def showHungryPacman():
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
+# PARA mostrarPacmanComendo, criamos uma matriz com os desenhos que compõem a imagem do pacman mastigando o hamburguer. 
+# Damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, limpamos o terminal
 def showEatingPacman():
     hungryPacman = [[animation1Pacman], 
           [animation2Pacman], 
@@ -78,6 +83,8 @@ def showEatingPacman():
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
+# PARA mostrarPacmanBom, criamos uma matriz com os desenhos que compõem a imagem do pacman fechando a boca. 
+# Damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, limpamos o terminal
 def showGoodPacman():
     goodPacman = [[animation1Pacman],
                   [animation14Pacman],
@@ -94,6 +101,8 @@ def showGoodPacman():
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
+# PARA mostrarPacmanFeliz, criamos uma matriz com os desenhos que compõem a imagem do pacman sorrindo. 
+# Damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, limpamos o terminal
 def showHappyPacman():
     goodPacman = [[animation1Pacman],
                   [animation2Pacman],
@@ -110,6 +119,9 @@ def showHappyPacman():
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
+# PARA mostrarPosicaoPacman, criamos um array com 7 emojis de hamburguer e um com 7 de cocô, além de uma variável que junta as strings do pacman neutro com um enter entre elas.
+# O valor de quantidade de vidas é usado como loop para tirar o elemento da posição 0 com pop do array de hamburgueres. Mesma coisa com o de cocô.
+# Com o print, colocamos as comidas juntadas com espaços em cima, o pacman neutro, e os cocôs embaixo
 def showPositonPacman(quantityFood, quantityShit):
     food = ['\U0001F354' for aux in range(lifes)]
     shit = ['\U0001F4A9' for aux in range(lifes)]
@@ -121,22 +133,9 @@ def showPositonPacman(quantityFood, quantityShit):
     print('=====================================================================================================')
     print("      ".join(food),  pacman, "\n" ,"       ".join(shit), '\n',f'Quantidade de tentativas restantes: {quantityFood}\n', f'Quantidade de erros: {quantityShit} \n')
     print('=====================================================================================================')
- 
-def showSadPacman():
-    goodPacman = [[animation1Pacman],
-                  [animation2Pacman],
-                  [animation3Pacman],
-                  [animation23Pacman],
-                  [animation24Pacman],
-                  [animation25Pacman],
-                  [animation26Pacman],
-                  [animation8Pacman],
-                  [animation9Pacman]]
-    
-    for i in range(len(goodPacman)):
-        print(goodPacman[i][0])
-    time.sleep(1)
 
+# PARA mostrarGameOver, criamos uma matriz com os desenhos que compõem a imagem das palavras game over. 
+# Damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, damos um espaço para a tela de fim de jogo
 def showGameOver(): 
     gameOver = [[animation1GameOver],
                 [animation2GameOver],
@@ -149,6 +148,8 @@ def showGameOver():
     time.sleep(1)
     print('\n')
 
+# PARA mostrarVitória, criamos uma matriz com os desenhos que compõem a imagem das palavras win. 
+# Damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, damos um espaço para a tela de fim de jogo
 def showWin(): 
     win = [[animation1WIN],
            [animation2WIN],
@@ -161,6 +162,8 @@ def showWin():
     time.sleep(1)
     print('\n')
 
+# PARA mostrarErro, chamamos as funções mostrarPacmanComFome, mostrarPacmanComendo, mostrarPacmanBem e mostrarPacmanFeliz como keyframes da animação
+# Chamamos a função mostrarPosicaoPacman com a quantidade de vidas e de erros. 
 def showError(quantityAvaliable, quantityErrors):  
     if(quantityAvaliable > 0):
         showHungryPacman()
@@ -170,7 +173,3 @@ def showError(quantityAvaliable, quantityErrors):
         showPositonPacman(quantityAvaliable, quantityErrors)
     else:
         showGameOver()
-
-def showRight(quantityAvaliable, quantityErrors):  
-    showSadPacman()
-    showPositonPacman(quantityAvaliable, quantityErrors)
