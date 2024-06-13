@@ -174,18 +174,18 @@ def mostrarDicasNaTela():
 
 # PARA jogar, pegamos o tempo da jogada para chamar a função controlarTempo() e ver a duração do jogo até agora (timer)
 # Enquanto o array com vidas tiver o tamanho menor que 7 e o timer for menor que a duração, nós vamos
-# 1. Pedir uma ação para o usuário 2. Gravar mais uma vez o tempo da rodada para a duração 3. Chamar a função de setUpParaRedesenharTela
+# 1. Pedir uma ação para o usuário 2. Gravar mais uma vez o tempo da rodada para a duração 3. Chamar a função de fazer set up para redesenhar a tela
 # Quando sair do while, chamamos a função de definirDerrota com o timer como parâmetro
 def jogar(palavra):
     timer = controlarTempo(time.time())                 # temos que criar a variável antes do while poder usá-la como condição
     while(len(vidas) < 7 and timer < duracao):     
         entrada = pedirAcaoDoJogador(palavra)
         timer = controlarTempo(time.time())
-        setUpParaRedesenharTela(entrada)
+        fazerSetUpParaRedesenharTela(entrada)
     definirDerrota(timer)
 
 # PARA pedirAcaoDoJogador, validamos a entrada (input) chamando a função validarEntrada, enviando a palavra sorteada sem acentos como parâmetro
-# Se a entrada validada for a str 'DICA', chamamos a função checarSeAindaHáDicasParaEntregar
+# Se a entrada validada for a str 'DICA', ela vê se é uma palavra com dicas. Se sim, chamamos a função checarSeAindaHáDicasParaEntregar
 # Se a entrada, depois de transformada em entrada sem acentos, for igual a palavra, depois de transformada em palavra sem acento, chamamos definirVitoria() 
 # Se for outra opção, chamamos a função checarSeLetraJaFoiUsada
 # Independente do que for, a função retorna a entrada validada, a qual será guardada em uma variável em jogar(), para que possa enviá-la como parâmetro para a nova tela (redesenhada pós ação do usuário)
@@ -194,7 +194,7 @@ def pedirAcaoDoJogador(palavra):
     if(entrada == 'DICA'): 
         checaSeExistiamDicasParaAPalavraNoInicioDoJogo = True
         if(len(dicas) != 0 and dicas[0] == 'Não existem dicas para essa palavra'): checaSeExistiamDicasParaAPalavraNoInicioDoJogo = False
-        if(checaSeExistiamDicasParaAPalavraNoInicioDoJogo): checarSeAindaHáDicasParaEntregar()
+        if(checaSeExistiamDicasParaAPalavraNoInicioDoJogo): checarSeAindaHaDicasParaEntregar()
     elif(entrada == palavra): definirVitoria()
     else: checarSeLetraJaFoiUsada(entrada)
     return entrada
@@ -227,10 +227,12 @@ def trocarEntradaParaJogo(entrada):
                     arrTemporarioParaNovaEntrada[i] = matrizDeTroca[linha][0]
     return ''.join(arrTemporarioParaNovaEntrada)
 
-def checarSeAindaHáDicasParaEntregar():
+# PARA checarSeAindaHaDicasParaEntregar, checamos se a lista de dicas está "zerada". 
+# Se não estiver, tira a vida, sorteia uma nova dica e a mostra na tela. Se estiver, caso não tenha a mensagem de falta de ficas no array ainda, a adiciona
+def checarSeAindaHaDicasParaEntregar():
     mensagem = CYAN + 'Você já usou todas as suas dicas' + RESET
     if (len(dicas) != 0): 
-        tirarVida() # FUNÇÃO PARA TIRAR VIDA
+        tirarVida() 
         sortearDica() 
         mostrarDicasNaTela()
     else: 
@@ -242,12 +244,16 @@ def checarSeAindaHáDicasParaEntregar():
         if(addAvisoDeDicasJaUsadas):
             dicasSorteadas.append(mensagem)
 
+# PARA tirarVida, adicionamos um elemento no array de vidas e limpamos o terminal para chamar a animação do pacman
 def tirarVida():
     vidas.append(0)
-    os.system('cls' if os.name == 'nt' else 'clear')
-    errorsService.showResult(7 - len(vidas), len(vidas))
+    os.system('cls' if os.name == 'nt' else 'clear')                # usa o módulo os para checar qual o sistema operacional. Por exemplo: se for Windows, o comando é 'cls'; se for Linux, é 'clear'
+    errorsService.showResult(7 - len(vidas), len(vidas))            # parâmetros: quantidade de vidas existentes (total - tamanho do array) e de erros (tamanho do array)
     time.sleep(1)
 
+# PARA checarSeLetraJaFoiUsada, checamos o array de letras usadas com uma booleana de controle. Se ele estiver vazio, adicionamos a entrada direto e mudamos a boolean para False, para não anexar duas vezes. 
+# Se não estiver vazio, passamos por ele com for e, se o elemento de alguma das iterações for igual à entrada, mudamos a boolean de controle para false. 
+# Se após essas checagens a boolean ainda for True, gravamos a mensagem de letra repetida no array de recados. De qualquer modo, chamamos a função que define se a entrada existe na palavra
 def checarSeLetraJaFoiUsada(entrada):
     adicionaLetraJaUsada = True
     if (len(letrasUsadas) == 0):
@@ -262,15 +268,19 @@ def checarSeLetraJaFoiUsada(entrada):
     if adicionaLetraJaUsada: letrasUsadas.append(entrada)
     definirSeEntradaExisteNaPalavra(entrada)
 
+# PARA definirSeEntradaExisteNaPalavra, criamos uma boolean de controle como True. Se a entrada for igual a qualquer elemento do array de letras já tratadas sem acento ou cedilha, então é porque o jogador acertou e mudamos a boolean para False e saímos do loop.
+# Se a boolean for True ainda, chamamos a função de adicionar entrada no array de letras erradas
 def definirSeEntradaExisteNaPalavra(entrada):
     entradaErrada = True
     for i in range(len(arrLetrasParaEntrada)):
         if(entrada == arrLetrasParaEntrada[i]):
             entradaErrada = False
             break
-    if entradaErrada: adicionarLetraNoArrayDeLetrasErradas(entrada)
+    if entradaErrada: adicionarEntradaNoArrayDeLetrasErradas(entrada)
 
-def adicionarLetraNoArrayDeLetrasErradas(entrada):
+# PARA adicionarEntradaNoArrayDeLetrasErradas, verificamos se a entrada já está no array de letras erradas com uma boolean de controle. 
+# Se não encontrar a entrada na lista de letras erradas, a adicionamos e chamamos a função de tirar vida
+def adicionarEntradaNoArrayDeLetrasErradas(entrada):
     adicionaLetraErrada = True
     if(len(letrasErradas) != 0): 
         for i in range(len(letrasErradas)):
@@ -279,9 +289,12 @@ def adicionarLetraNoArrayDeLetrasErradas(entrada):
                 break
     if adicionaLetraErrada: 
         letrasErradas.append(entrada)
-        tirarVida() # FUNÇÃO PARA TIRAR VIDA
+        tirarVida()
 
-def setUpParaRedesenharTela(entrada): 
+# PARA fazerSetUpParaRedesenharTela, primeiro limpamos o terminal, depois mostramos o pacman na posição parada com o feedback de vidas e erros e redesenhamos o código na tela
+# Com um for que roda a quantidade de letras que há na tela (ou na entrada, ou no código), vemos se a entrada é igual a alguma das letras no array de letras para conferir com a entrada (sem acentou ou cedilha). Se for, '_ ' naquela mesma posição no código e substituída pela letra na mesma posição no array de letras para a tela
+# Depois disso redesenhamos a tela e limpamos o array de recados
+def fazerSetUpParaRedesenharTela(entrada): 
     os.system('cls' if os.name == 'nt' else 'clear')
     animationPacman.showPositonPacman(7 - len(vidas), len(vidas))
     for j in range(len(arrLetrasParaTela)):
@@ -290,6 +303,8 @@ def setUpParaRedesenharTela(entrada):
     redesenharTela()
     if(len(recados) != 0): recados[0] = ''
 
+# PARA redesenharTela, mostramos: os recados, a lista de letras erradas, o código atualizado e as dicas já "abertas" na tela
+# Por fim, chamamos a função de checar se o código foi resolvido
 def redesenharTela(): 
     mostrarRecadosNaTela()
     mostrarListaDeLetrasErradas()
@@ -297,9 +312,11 @@ def redesenharTela():
     mostrarDicasNaTela()
     checarSeCodigoFoiResolvido()
 
+# PARA mostrarRecadosNaTela, mostramos o primeiro elemento, uma vez que os recados se sobreescrevem
 def mostrarRecadosNaTela():
     if(len(recados) != 0): print(recados[0])
 
+# PARA mostrarListaDeLetrasErradas, percorremos pelo array de letras usadas quando não está vazio e colocamos cada letra uma ao lado da outra, até a última. 
 def mostrarListaDeLetrasErradas():
     if(len(letrasErradas) != 0):
         print('Letras erradas: ', end = '')
@@ -309,22 +326,28 @@ def mostrarListaDeLetrasErradas():
             else: 
                 print(f'{letrasErradas[k]}, ', end='')
 
+# PARA mostrarCodigoAtualizado, damos print em cada elemento um ao lado do outro
 def mostrarCodigoAtualizado():
     for l in range(len(codigo)):
         if(l == len(codigo) - 1): print(codigo[l])
         else: print(f'{codigo[l]}', end='')
 
+# PARA checarSeCodigoFoiResolvido, usamos uma boolean para controle. Percorremos o array do código e, caso ainda haja elementos '_ ', é porque ainda há letras para decifrar e mudamos a boolean de True para False. 
+# Caso a boolean ainda fique como True após esse loop, definimos a Vitoria
 def checarSeCodigoFoiResolvido():
     palavraDecifrada = True
     for m in range(len(codigo)):
         if(codigo[m] == '_ '): palavraDecifrada = False
     if palavraDecifrada : definirVitoria()
 
+# PARA controlarTempo, recebemos o tempo atual após cada ação do usuário e retornamos para a função jogar a o tempo decorrido até então, para ser usado como: 
+# validador do while e para ser enviado como parâmetro para a tela de derrota, caso precise
 def controlarTempo(agora): 
     index = len(controleDeTempoInicial) - 1
     duracao = round(agora - controleDeTempoInicial[index])
     return duracao
 
+# PARA definirVitoria, limpamos o terminal, salvamos 1 no array de resultados, mostramos mensagem de vitória e chamamos a função de desenhar a tela final do jogo
 def definirVitoria():
     os.system('cls' if os.name == 'nt' else 'clear')
     mensagem = f'{GREEN}Parabéns, você ganhou!{RESET}\U0001F601'
@@ -333,6 +356,9 @@ def definirVitoria():
     animationPacman.showWin()
     desenharTelaDeFimDeJogo()
 
+# PARA definirDerrota, limpamos o terminal, salvamos 0 no array de resultados e vemos por que o jogador perdeu
+# Se por tempo (parâmetro de timer recebido superou a duração estabelecida para o jogo), mostramos uma mensagem de tempo. Se não, de que as vidas acabaram. Em ambas as mensagem, mostramos a resposta. 
+# Mostramos imagem de game over e chamamos a função de desenhar tela de fim de jogo
 def definirDerrota(timer):
     os.system('cls' if os.name == 'nt' else 'clear')
     resultados.append(0)
@@ -346,21 +372,27 @@ def definirDerrota(timer):
     animationPacman.showGameOver()
     desenharTelaDeFimDeJogo()
 
+# PARA desenharTelaDeFimDeJogo, salvamos o tempo de agora no array de tempos finais. 
+# Entramos em um loop que passa pelas listas de palavras usadas, criando uma tela com os resultados das rodadas desse jogo: nº da rodada, resposta e chamamos para calcular tempo de cada uma dessas rodadas
+# Usamos os 1s e 0s do array de resultados para escrever a linha em verde ou vermelho no terminal. Pedimos pela decisão do jogador de continuar ou não. 
 def desenharTelaDeFimDeJogo():
     controleDeTempoFinal.append(time.time())
     for i in range(len(palavrasUsadas)):
         mensagem = f'{i+1}ª rodada - {palavrasUsadas[i]} - {calcularTempoDaRodada(i)}'
         if(resultados[i] == 1): print(GREEN + mensagem + RESET)
         else: print(RED + mensagem + RESET)
-    decisaoDoUsuarioParaFimDeJogo()
+    pedirDecisaoDoUsuarioParaFimDeJogo()
 
+# PARA calcularTempoDaRodada, subtraímos o tempo inicial do final daquela posição. O arredondamento para inteiros da divisão desse número por 60 são os minutos; o resto, os segundos. Damos o return do cronômetro mm:ss.
 def calcularTempoDaRodada(i):
     duracao = controleDeTempoFinal[i] - controleDeTempoInicial[i]
     mins = round(duracao / 60)
     secs = round(duracao % 60)
     return f'{mins:02d}:{secs:02d}'
-    
-def decisaoDoUsuarioParaFimDeJogo():
+
+# PARA pedirDecisaoDoUsuarioParaFimDeJogo, esperamos um pouco e então chamamos uma função que irá validar a entrada do jogador. 
+# Se ele digitou que sim, chamamos função de fazer setup do início do jogo. Se digitou que não, agradecemos, esperamos um pouco, e saímos do terminal pelo sistema operacional. 
+def pedirDecisaoDoUsuarioParaFimDeJogo():
     time.sleep(1)
     novoJogo = validarNovoJogo()
     if(novoJogo == 'Y'): fazerSetUpDoJogo() 
@@ -368,9 +400,12 @@ def decisaoDoUsuarioParaFimDeJogo():
         print("Obrigado pela participação. Até logo!")
         time.sleep(2)
         sys.exit()
-        
+
+# PARA validarNovoJogo, perguntamos se ele deseja jogar novamente até que a entrada dele seja sim ou não
 def validarNovoJogo():
     novoJogo = input('Deseja jogar novamente? [Y/n]: ').upper()
     while(novoJogo != 'Y' and novoJogo != 'N'):
         novoJogo = input('Código inválido. Digite Y para jogar novamente ou N para sair: ').upper()
     return novoJogo
+
+#######################################################################################
