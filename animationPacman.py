@@ -57,8 +57,7 @@ def showHungryPacman():
                      [animation8Pacman], 
                      [animation9Pacman]]
     
-    for i in range(len(hungryPacman)):
-        print(hungryPacman[i][0])
+    showImage(hungryPacman)
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -73,8 +72,7 @@ def showEatingPacman():
           [animation8Pacman], 
           [animation9Pacman]]
       
-    for i in range(len(hungryPacman)):
-        print(hungryPacman[i][0])
+    showImage(hungryPacman)
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -89,8 +87,7 @@ def showGoodPacman():
                   [animation8Pacman],
                   [animation9Pacman]]
     
-    for i in range(len(goodPacman)):
-        print(goodPacman[i][0])
+    showImage(goodPacman)
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -105,8 +102,7 @@ def showHappyPacman():
                   [animation8Pacman],
                   [animation9Pacman]]
     
-    for i in range(len(goodPacman)):
-        print(goodPacman[i][0])
+    showImage(goodPacman)
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -133,8 +129,7 @@ def showSadPacman():
                   [animation8Pacman],
                   [animation9Pacman]]
     
-    for i in range(len(goodPacman)):
-        print(goodPacman[i][0])
+    showImage(goodPacman);
     time.sleep(1)
 
 def showGameOver(): 
@@ -144,8 +139,7 @@ def showGameOver():
                 [animation4GameOver],
                 [animation5GameOver]]
     
-    for i in range(len(gameOver)):
-        print(gameOver[i][0])
+    showImage(gameOver)
     time.sleep(1)
     print('\n')
 
@@ -156,8 +150,7 @@ def showWin():
            [animation4WIN],
            [animation5WIN]]
     
-    for i in range(len(win)):
-        print(win[i][0])
+    showImage(win)
     time.sleep(1)
     print('\n')
 
@@ -174,3 +167,9 @@ def showError(quantityAvaliable, quantityErrors):
 def showRight(quantityAvaliable, quantityErrors):  
     showSadPacman()
     showPositonPacman(quantityAvaliable, quantityErrors)
+
+# RECEBE COMO PARAMETRO UMA MATRIZ BIDIMENSIONAL PARA EXIBIR UMA IMAGEM. ESSA FUNCAO IRA PERCORRER AS LINHAS DA MATRIZ E EXIBIR
+# O CONTEUDO DA COLUNA DA POSICAO ZERO. SERVE PARA QUALQUER TIPO DE EXIBICAO DE MATRIZ COM VALORES APENAS NO INDICE ZERO
+def showImage(image): 
+    for i in range(len(image)):
+        print(image[i][0])
