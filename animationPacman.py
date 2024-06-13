@@ -48,7 +48,7 @@ animationFood1 = r' __'
 animationFood2 = r'|__|'
 
 # PARA mostrarPacmanComFome, criamos uma matriz com os desenhos que compõem a imagem do pacman abrindo a boca para um hambúrguer. 
-# Damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, limpamos o terminal, para que a animação ficasse sobreposta
+# Com o mostrarImagem, damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, limpamos o terminal, para que a animação ficasse sobreposta
 def showHungryPacman():
     hungryPacman = [[animation1Pacman], 
                      [animation2Pacman], 
@@ -60,13 +60,12 @@ def showHungryPacman():
                      [animation8Pacman], 
                      [animation9Pacman]]
     
-    for i in range(len(hungryPacman)):
-        print(hungryPacman[i][0])
+    showImage(hungryPacman)
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
 # PARA mostrarPacmanComendo, criamos uma matriz com os desenhos que compõem a imagem do pacman mastigando o hamburguer. 
-# Damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, limpamos o terminal
+# Com o mostrarImagem, damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, limpamos o terminal
 def showEatingPacman():
     hungryPacman = [[animation1Pacman], 
           [animation2Pacman], 
@@ -78,13 +77,12 @@ def showEatingPacman():
           [animation8Pacman], 
           [animation9Pacman]]
       
-    for i in range(len(hungryPacman)):
-        print(hungryPacman[i][0])
+    showImage(hungryPacman)
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
 # PARA mostrarPacmanBom, criamos uma matriz com os desenhos que compõem a imagem do pacman fechando a boca. 
-# Damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, limpamos o terminal
+# Com o mostrarImagem, damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, limpamos o terminal
 def showGoodPacman():
     goodPacman = [[animation1Pacman],
                   [animation14Pacman],
@@ -96,13 +94,12 @@ def showGoodPacman():
                   [animation8Pacman],
                   [animation9Pacman]]
     
-    for i in range(len(goodPacman)):
-        print(goodPacman[i][0])
+    showImage(goodPacman)
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
 # PARA mostrarPacmanFeliz, criamos uma matriz com os desenhos que compõem a imagem do pacman sorrindo. 
-# Damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, limpamos o terminal
+# Com o mostrarImagem, damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, limpamos o terminal
 def showHappyPacman():
     goodPacman = [[animation1Pacman],
                   [animation2Pacman],
@@ -114,8 +111,7 @@ def showHappyPacman():
                   [animation8Pacman],
                   [animation9Pacman]]
     
-    for i in range(len(goodPacman)):
-        print(goodPacman[i][0])
+    showImage(goodPacman)
     time.sleep(1)
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -135,7 +131,7 @@ def showPositonPacman(quantityFood, quantityShit):
     print('=====================================================================================================')
 
 # PARA mostrarGameOver, criamos uma matriz com os desenhos que compõem a imagem das palavras game over. 
-# Damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, damos um espaço para a tela de fim de jogo
+# Com o mostrarImagem, damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, damos um espaço para a tela de fim de jogo
 def showGameOver(): 
     gameOver = [[animation1GameOver],
                 [animation2GameOver],
@@ -143,13 +139,12 @@ def showGameOver():
                 [animation4GameOver],
                 [animation5GameOver]]
     
-    for i in range(len(gameOver)):
-        print(gameOver[i][0])
+    showImage(gameOver)
     time.sleep(1)
     print('\n')
 
 # PARA mostrarVitória, criamos uma matriz com os desenhos que compõem a imagem das palavras win. 
-# Damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, damos um espaço para a tela de fim de jogo
+# Com o mostrarImagem, damos print em cada um deles, um embaixo do outro, formando assim a figura e, depois de um segundo, damos um espaço para a tela de fim de jogo
 def showWin(): 
     win = [[animation1WIN],
            [animation2WIN],
@@ -157,8 +152,7 @@ def showWin():
            [animation4WIN],
            [animation5WIN]]
     
-    for i in range(len(win)):
-        print(win[i][0])
+    showImage(win)
     time.sleep(1)
     print('\n')
 
@@ -173,3 +167,9 @@ def showError(quantityAvaliable, quantityErrors):
         showPositonPacman(quantityAvaliable, quantityErrors)
     else:
         showGameOver()
+
+# RECEBE COMO PARAMETRO UMA MATRIZ BIDIMENSIONAL PARA EXIBIR UMA IMAGEM. ESSA FUNCAO IRA PERCORRER AS LINHAS DA MATRIZ E EXIBIR
+# O CONTEUDO DA COLUNA DA POSICAO ZERO. SERVE PARA QUALQUER TIPO DE EXIBICAO DE MATRIZ COM VALORES APENAS NO INDICE ZERO
+def showImage(image): 
+    for i in range(len(image)):
+        print(image[i][0])
