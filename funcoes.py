@@ -75,21 +75,6 @@ def escolherPalavra(palavras):
     while 'D:' in palavra or palavra[2:].strip() in palavrasUsadas:                         
         palavra = random.choice(palavras)
     acharDicas(palavras, palavra)
-    '''
-    palavra = random.choice(palavras)
-    checarSeJaFoiUsado = False
-    for dado in palavrasUsadas:
-        if (dado == palavra): 
-            checarSeJaFoiUsado = True
-            break
-    while(palavra[0:2] == 'D:' or checarSeJaFoiUsado):
-        palavra = random.choice(palavras)
-        checarSeJaFoiUsado = False
-        for dado in palavrasUsadas:
-            if (dado == palavra): 
-                checarSeJaFoiUsado = True
-                break
-    '''
 
 # PARA acharDicas, passamos pela lista até achar a palavra. 
 # Chamamos o guardarDicas com a lista de palavras e o index da palavra encontrada
