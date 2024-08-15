@@ -50,7 +50,7 @@ https://www.youtube.com/playlist?list=PLcoYAcR89n-qbO7YAVj5S0alABLis_QVU
 
 https://docs.github.com/en/get-started/using-github/github-flow
 
-### Para formular as funções
+# Para formular as funções
 ## Regras
 1. Nomes óbvios e descritivos em camelCase
 2. Devem ser pequenas (o ideal seria, no máximo, de 4 linhas)
@@ -70,11 +70,11 @@ https://docs.github.com/en/get-started/using-github/github-flow
 10. Evitar repetições
 
 ## Descrições
-# Exemplo
+### Exemplo
 “TO RenderPageWithSetupsAndTeardowns, verificamos se a página é de teste, se for, incluímos setups e teardowns. Em ambos os casos, exibimos a página em HTML” (pág. 36)
 Com base no livro Código Limpo, do Robert C. Martin
 
 TO → PARA
 
-### Canal de organização
+# Canal de organização
 Usaremos o Trello
